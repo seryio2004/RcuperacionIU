@@ -257,5 +257,50 @@ mostrarDatos(entidad, datosfilas, columnasamostrar){
         document.getElementById('modal_action_overlay').style.display = 'none';
         //document.getElementById('error_action_msg').removeAttribute('class');
     }
+    createForm(formType, entityData) {
+        const entityClass = entityData.entityClass;
     
-} // fin de clase
+        if (typeof entityClass.cargar_formulario_html === 'function') {
+            // Si existe cargar_formulario_html, se ejecuta
+            entityClass.cargar_formulario_html(formType);
+        } else {
+            // Si no existe, se genera dinámicamente el formulario
+            this.cargar_formulario_dinamico(formType, entityData);
+        }
+    }
+    
+    cargar_formulario_dinamico(formType, entityData) {
+        const formContainer = document.createElement('form');
+        formContainer.id = `${formType}_form`;
+        formContainer.className = 'dynamic-form';
+    
+        // Iterar sobre la estructura de datos de la entidad para generar los campos
+        entityData.fields.forEach(field => {
+            const fieldContainer = document.createElement('div');
+            fieldContainer.className = 'form-field';
+    
+            const label = document.createElement('label');
+            label.htmlFor = field.name;
+            label.textContent = field.label;
+    
+            const input = document.createElement('input');
+            input.id = field.name;
+            input.name = field.name;
+            input.type = field.type || 'text'; // Tipo de campo (por defecto 'text')
+    
+            fieldContainer.appendChild(label);
+            fieldContainer.appendChild(input);
+            formContainer.appendChild(fieldContainer);
+        });
+    
+        // Añadir botón de acción según el tipo de formulario
+        const submitButton = document.createElement('button');
+        submitButton.type = 'submit';
+        submitButton.textContent = formType;
+        formContainer.appendChild(submitButton);
+    
+        // Insertar el formulario en el DOM
+        document.body.appendChild(formContainer);
+    }
+    
+} 
