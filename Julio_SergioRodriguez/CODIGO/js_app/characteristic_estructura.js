@@ -1,6 +1,6 @@
 
 
-const estructura_generica = {
+const estructura_characteristic = {
     attributes_list: ['id_characteristic', 'name_characteristic', 'description_characteristic', 'data_type_characteristic', 'category_characteristic', 'bibref_characteristic', 'file_characteristic'],
     columnas_visibles_tabla: ['id_characteristic', 'name_characteristic', 'description_characteristics', 'bibref_characteristic'],
     columnas_modificadas_tabla: ['data_type_characteristic', 'category_characteristic', 'file_characteristic'],
@@ -29,6 +29,7 @@ const estructura_generica = {
                 }
             }
         },
+
         name_characteristic: {
             html: {
                 tag: 'input',
@@ -121,6 +122,7 @@ const estructura_generica = {
                 }
             }
         },
+
         bibref_characteristic: {
             html: {
                 tag: 'input',
@@ -146,7 +148,7 @@ const estructura_generica = {
                 }
             }
         },
-
+        
         file_characteristic: {
             html: {
                 tag: 'input',
@@ -170,7 +172,6 @@ const estructura_generica = {
                 }
             }
         }
-
     }
 };
 /*

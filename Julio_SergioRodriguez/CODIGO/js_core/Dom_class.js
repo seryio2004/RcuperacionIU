@@ -208,7 +208,27 @@ mostrarDatos(entidad, datosfilas, columnasamostrar){
         
                 textolineadatos += lineaedit+lineadelete+lineashowcurrent;
         
-                textolineadatos += '</tr>';
+                textolineadatos += '</tr>';  star_date_project :{
+            html:{
+                tag:'input',
+                type:'date',
+            },
+            is_not_null: true,
+            component_visible_size: 10,
+            validation_rules:{
+                ADD: {
+                  
+                    format: ['^[A-Za-z ]+$', "name_project_format_KO"]
+                    //falta cambiar la expresion regular para los date 
+                },
+                EDIT: {
+                   
+                    format: ['^[A-Za-z ]+$', "name_project_format_KO"]
+                },
+                SEARCH: 
+                    format: ['^[A-Za-z ]+$', "name_project_format_KO"]
+                },
+            },
         
             }
             
@@ -269,6 +289,20 @@ mostrarDatos(entidad, datosfilas, columnasamostrar){
         }
     }
     
+
+
+    createForm(){
+        if(eval(this.cargar_formulario_dinamico)){
+            this.cargar_formulario_dinamico;
+        }else{
+            let formulario="";
+
+        }
+    }
+
+
+
+
     cargar_formulario_dinamico(formType, entityData) {
         const formContainer = document.createElement('form');
         formContainer.id = `${formType}_form`;
