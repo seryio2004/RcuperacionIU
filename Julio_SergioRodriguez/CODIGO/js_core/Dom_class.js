@@ -55,8 +55,6 @@ class DOM_class extends test {
                 }
             }
         }
-
-
     }
 
     construirSelect() {
@@ -140,30 +138,30 @@ class DOM_class extends test {
 
     }
 
-    
-    
-    mostrarTitulos(columnasamostrar){
-    
-                let textolineatitulos = '<tr>';
-            
-                for (let atributo in columnasamostrar){
-            
-                    textolineatitulos += '<th class="'+columnasamostrar[atributo]+'">'+columnasamostrar[atributo]+'</th>';
-            
-                }
-            
-                textolineatitulos += '<th colspan="3"></th>';
-            
-                textolineatitulos += '</tr>';
-            
-                let cabecera = document.getElementById("titulostablacabecera");
-                cabecera.innerHTML = textolineatitulos;
-            
-                return cabecera;
-            
-    } 
-                
-    
+
+
+    mostrarTitulos(columnasamostrar) {
+
+        let textolineatitulos = '<tr>';
+
+        for (let atributo in columnasamostrar) {
+
+            textolineatitulos += '<th class="' + columnasamostrar[atributo] + '">' + columnasamostrar[atributo] + '</th>';
+
+        }
+
+        textolineatitulos += '<th colspan="3"></th>';
+
+        textolineatitulos += '</tr>';
+
+        let cabecera = document.getElementById("titulostablacabecera");
+        cabecera.innerHTML = textolineatitulos;
+
+        return cabecera;
+
+    }
+
+
 
     crearboton(entidad, accion, parametros) {
         let columna = document.createElement('td');
@@ -176,68 +174,68 @@ class DOM_class extends test {
 
     }
 
-  /*  
-    
-    mostrarDatos(entidad, datosfilas, columnasamostrar){
-    
-                let textolineadatos = '';
-    
-                for (let i=0;i<datosfilas.length;i++){
-            
-                    textolineadatos += '<tr style="background-color:grey;">';
-        
-                    for (let j=0;j<columnasamostrar.length;j++){
-        
-                        let clave = columnasamostrar[j];
-            
-                            if (this.datosespecialestabla.includes(clave)){
-                                let valorcolumna = this.cambiardatosespecialestabla(clave,datosfilas[i][clave]);
-                                textolineadatos += '<td>'+valorcolumna+'</td>';
-                            }
-                            else{
-                                textolineadatos += '<td>'+datosfilas[i][clave]+'</td>';
-                            }
-            
-                    }
-            
-                    // crear los td para cada boton de llamada a funcion de formulario de accion (EDIT, DELETE O SHOWCURRENT)
-            
-                    let lineaedit = this.crearboton(entidad, 'EDIT', JSON.stringify(datosfilas[i]));
-                    let lineadelete = this.crearboton(entidad, 'DELETE', JSON.stringify(datosfilas[i]));
-                    let lineashowcurrent = this.crearboton(entidad, 'SHOWCURRENT', JSON.stringify(datosfilas[i]));
-            
-                    textolineadatos += lineaedit+lineadelete+lineashowcurrent;
-            
-                    textolineadatos += '</tr>';  star_date_project :{
-                html:{
-                    tag:'input',
-                    type:'date',
-                },
-                is_not_null: true,
-                component_visible_size: 10,
-                validation_rules:{
-                    ADD: {
-                      
-                        format: ['^[A-Za-z ]+$', "name_project_format_KO"]
-                        //falta cambiar la expresion regular para los date 
-                    },
-                    EDIT: {
-                       
-                        format: ['^[A-Za-z ]+$', "name_project_format_KO"]
-                    },
-                    SEARCH: 
-                        format: ['^[A-Za-z ]+$', "name_project_format_KO"]
-                    },
-                },
-            
-                }
-                
-                let cuerpo = document.getElementById('muestradatostabla');
-                cuerpo.innerHTML = textolineadatos;
-            
-            }
-        
-        */
+    /*  
+      
+      mostrarDatos(entidad, datosfilas, columnasamostrar){
+      
+                  let textolineadatos = '';
+      
+                  for (let i=0;i<datosfilas.length;i++){
+              
+                      textolineadatos += '<tr style="background-color:grey;">';
+          
+                      for (let j=0;j<columnasamostrar.length;j++){
+          
+                          let clave = columnasamostrar[j];
+              
+                              if (this.datosespecialestabla.includes(clave)){
+                                  let valorcolumna = this.cambiardatosespecialestabla(clave,datosfilas[i][clave]);
+                                  textolineadatos += '<td>'+valorcolumna+'</td>';
+                              }
+                              else{
+                                  textolineadatos += '<td>'+datosfilas[i][clave]+'</td>';
+                              }
+              
+                      }
+              
+                      // crear los td para cada boton de llamada a funcion de formulario de accion (EDIT, DELETE O SHOWCURRENT)
+              
+                      let lineaedit = this.crearboton(entidad, 'EDIT', JSON.stringify(datosfilas[i]));
+                      let lineadelete = this.crearboton(entidad, 'DELETE', JSON.stringify(datosfilas[i]));
+                      let lineashowcurrent = this.crearboton(entidad, 'SHOWCURRENT', JSON.stringify(datosfilas[i]));
+              
+                      textolineadatos += lineaedit+lineadelete+lineashowcurrent;
+              
+                      textolineadatos += '</tr>';  star_date_project :{
+                  html:{
+                      tag:'input',
+                      type:'date',
+                  },
+                  is_not_null: true,
+                  component_visible_size: 10,
+                  validation_rules:{
+                      ADD: {
+                        
+                          format: ['^[A-Za-z ]+$', "name_project_format_KO"]
+                          //falta cambiar la expresion regular para los date 
+                      },
+                      EDIT: {
+                         
+                          format: ['^[A-Za-z ]+$', "name_project_format_KO"]
+                      },
+                      SEARCH: 
+                          format: ['^[A-Za-z ]+$', "name_project_format_KO"]
+                      },
+                  },
+              
+                  }
+                  
+                  let cuerpo = document.getElementById('muestradatostabla');
+                  cuerpo.innerHTML = textolineadatos;
+              
+              }
+          
+          */
 
     cerrar_formulario() {
 
@@ -279,7 +277,7 @@ class DOM_class extends test {
     }
 
 
-    createForm() {
+    createForm(action) {
         document.getElementById('IU_form').innerHTML = '';
 
         if (typeof this.cargar_formulario_html === 'function') {
@@ -288,15 +286,66 @@ class DOM_class extends test {
             this.cargar_formulario_dinamico();
         }
 
-        if (this.form_values) {
-            this.load_data(this.form_values);
-        }
+        for (let input of document.getElementById('IU_form').querySelectorAll('input, textarea, select')) {
+            const atributo = input.id;
+            //autoincrementales
+            if (action === 'ADD' || action === 'EDIT') {
+                const autoIn = this.estructura?.attributes?.[atributo]?.is_autoincrement || false;
+                if (autoIn) {
+                    input.classList.add('hidden');
+                    document.getElementById(`label_${atributo}`).classList.add('hidden');
+                    document.getElementById(`div_error_${atributo}`).classList.add('hidden');
+                }
+            }
+            //ficheros
+            if (action === 'ADD' || action === 'SEARCH') {
+                const esfichero = (this.estructura?.attributes?.[atributo]?.html?.type) === 'file';
+                if (esfichero) {
 
-        document.getElementById('div_IU_form').style.display = 'block';
-        setLang();
+                    document.getElementById(`link_${atributo}`).classList.add('hidden');
+
+                }
+            }
+
+            if (action === 'ADD') {
+                const esfichero = (this.estructura?.attributes?.[atributo]?.html?.type) === 'file';
+                if (esfichero) {
+                    input.classList.add('hidden');
+                    document.getElementById(`label_${atributo}`).classList.add('hidden');
+                    document.getElementById(`div_error_${atributo}`).classList.add('hidden');
+                }
+            }
+
+            if (action === 'SEARCH' || action === 'SHOWCURRENT' || action === 'DELETE') {
+                if (atibuto.startsWith('nuevo_') || atributo.startsWith('foto_')) {
+                    input.classList.add('hidden');
+                    document.getElementById(`label_${atributo}`).classList.add('hidden');
+                    document.getElementById(`div_error_${atributo}`).classList.add('hidden');
+                }
+            }
+        }
+        //colocar botones 
+
+        switch (action) {
+            case 'ADD':
+                document.getElementById('IU_form').innerHTML += `<button type="submit" id="submit_button" class="btn btn-primary">${this.textos['text_contenido_boton_submit_ADD']}</button>`;
+                break;
+            case 'SEARCH':
+                document.getElementById('IU_form').innerHTML += `<button type="submit" id="submit_button" class="btn btn-primary">${this.textos['text_contenido_boton_submit_SEARCH']}</button>`;
+                break;
+            case 'EDIT':
+                document.getElementById('IU_form').innerHTML += `<button type="submit" id="submit_button" class="btn btn-primary">${this.textos['text_contenido_boton_submit_EDIT']}</button>`;
+                break;
+            case 'DELETE':
+                document.getElementById('IU_form').innerHTML += `<button type="submit" id="submit_button" class="btn btn-primary">${this.textos['text_contenido_boton_submit_DELETE']}</button>`;
+                break;
+
+
+        }
     }
 
-    cargar_formulario_html() {
+    cargar_formulario_dinamico() {
+        /*
         const estructura = this.estructura;
         let formulario = '';
         const accion = this.tipo_formulario || 'ADD';
@@ -328,6 +377,53 @@ class DOM_class extends test {
         }
 
         document.getElementById('IU_form').innerHTML = formulario;
+        */
+        const attributes = this.estructura.attributes_list || [];
+
+        for (let attribute of attributes) {
+          const type = this.structure?.attributes?.[attribute]?.html?.type || "";
+          const tag = this.structure?.attributes?.[attribute]?.html?.tag || "";
+    
+          switch (tag) {
+            case "input":
+              switch (type) {
+                case "text":
+                  formContent += `<label for="${attribute}">${attribute}</label>` +
+                                 `<input type="text" id="${attribute}" name="${attribute}">`;
+                  break;
+                case "number":
+                  formContent += `<label for="${attribute}">${attribute}</label>` +
+                                 `<input type="number" id="${attribute}" name="${attribute}">`;
+                  break;
+                case "file":
+                  formContent += `<label for="${attribute}">${attribute}</label>` +
+                                 `<input type="file" id="${attribute}" name="${attribute}">` +
+                                 `<span id="div_error_${attribute}"></span>` +
+                                 `<a id="link_${attribute}" href="http://193.147.87.202/c12/files_uploaded/files_${attribute}/">` +
+                                 `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">...</svg></a>`;
+                  break;
+                
+              }
+              break;
+    
+            case "textarea":
+              const cols = this.structure?.attributes?.[attribute]?.html?.cols || 50;
+              const rows = this.structure?.attributes?.[attribute]?.html?.rows || 10;
+              formContent += `<label for="${attribute}">${attribute}</label>` +
+                             `<textarea id="${attribute}" name="${attribute}" rows="${rows}" cols="${cols}"></textarea>`;
+              break;
+    
+            case "select":
+              const options = this.structure?.attributes?.[attribute]?.html?.options || [];
+              formContent += `<label for="${attribute}">${attribute}</label>` +
+                             `<select name="${attribute}" id="${attribute}">`;
+              for (const option of options) {
+                formContent += `<option value="${option}" class="option_slot">${option}</option>`;
+              }
+              formContent += `</select>`;
+              break;
+          }
+        }  
     }
 
     load_data(values) {
@@ -340,7 +436,7 @@ class DOM_class extends test {
                 elemento.value = values[campo];
             }
         }
-    }   
+    }
 
     createForm_ADD() {
         this.tipo_formulario = 'ADD';

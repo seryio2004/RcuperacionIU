@@ -39,7 +39,7 @@ class EntidadAbstracta extends DOM_class {
 	cargar_formulario() {
 
 		if (eval(this.cargar_formulario_html)) {
-			this.cargar_formulario_html();
+			this.createForm();
 		}
 		else {
 			if (eval(this.cargar_formulario_dinamico)) {
@@ -62,7 +62,7 @@ class EntidadAbstracta extends DOM_class {
 			.then((respuesta) => {
 
 				//limpiar el formulario
-				this.cargar_formulario_html();
+				this.createForm();
 				//quito los class de la muestra de filas
 				document.getElementById('muestradatostabla').removeAttribute('class');
 
@@ -94,7 +94,7 @@ class EntidadAbstracta extends DOM_class {
 				if (respuesta['ok']) {
 
 					//limpiar el formulario
-					this.cargar_formulario();
+					this.createForm();
 
 					//poner el div del formulario no visible
 					document.getElementById("div_IU_form").style.display = 'none';
@@ -123,7 +123,7 @@ class EntidadAbstracta extends DOM_class {
 				if (respuesta['ok']) {
 
 					//limpiar el formulario
-					this.cargar_formulario();
+					this.createForm();
 
 					//poner el div del formulario no visible
 					document.getElementById("div_IU_form").style.display = 'none';

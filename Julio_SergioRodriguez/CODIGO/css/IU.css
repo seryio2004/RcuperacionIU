@@ -170,4 +170,38 @@ seleccion columnas
 .dropdown:hover .dropdown-content{
     display: block;
 }
-
+@media screen and (max-width: 960px) {
+    /* Estilos para formato móvil */
+    table, thead, tbody, th, td, tr {
+      display: block;
+    }
+  
+    thead {
+      display: none;
+    }
+  
+    tr {
+      margin-bottom: 16px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background-color: #fff;
+      padding: 8px;
+    }
+  
+    td {
+      padding-left: 50%;
+      position: relative;
+      text-align: left;
+    }
+  
+    td::before {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      width: 45%;
+      padding-right: 8px;
+      white-space: nowrap;
+      font-weight: bold;
+      content: attr(data-label);
+    }
+  }
