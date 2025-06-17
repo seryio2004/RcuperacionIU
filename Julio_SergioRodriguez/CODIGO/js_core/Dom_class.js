@@ -278,6 +278,12 @@ class DOM_class extends test {
         //document.getElementById('error_action_msg').removeAttribute('class');
     }
 
+    // Default empty form loader so child classes may override it
+    cargar_formulario_html() {
+        // If an entity implements its own HTML form it should override this
+        return false;
+    }
+
 
     createForm() {
         document.getElementById('IU_form').innerHTML = '';

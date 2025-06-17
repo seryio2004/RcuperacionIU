@@ -36,33 +36,31 @@ class EntidadAbstracta extends DOM_class{
 
 	}
 
-	cargar_formulario(){
+        cargar_formulario(){
 
-		if (eval(this.cargar_formulario_html)){
-			this.cargar_formulario_html();
-		}
-		else{
-			if (eval(this.cargar_formulario_dinamico)){
-				this.cargar_formulario_dinamico();
-			}
-			else{
-				
-				// alert('no existe formulario');
-				// Usando modal
-				this.abrirModalError('no existe formulario');
-			}
-		}
+                // reutilizamos la utilidad general de DOM_class que
+                // carga el formulario desde html o de forma dinámica
+                if (typeof this.createForm === 'function') {
+                        this.createForm();
+                } else {
+                        // en caso de que createForm no exista mostramos error
+                        this.abrirModalError('no existe formulario');
+                }
 
-	}
+        }
 
 
 	async SEARCH(){
     
         await this.access_functions.peticionBackGeneral('IU_form', this.entidad, 'SEARCH')
         .then((respuesta) => {
-            
-            //limpiar el formulario
-        	this.cargar_formulario_html();
+
+            // reconstruir el formulario de búsqueda para dejarlo limpio
+                if (typeof this.createForm_SEARCH === 'function') {
+                        this.createForm_SEARCH();
+                } else {
+                        this.cargar_formulario();
+                }
 			//quito los class de la muestra de filas
 			document.getElementById('muestradatostabla').removeAttribute('class');
 
