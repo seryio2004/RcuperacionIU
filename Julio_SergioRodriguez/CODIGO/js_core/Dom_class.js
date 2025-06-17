@@ -1,259 +1,259 @@
-class DOM_class extends test{
+class DOM_class extends test {
 
-    constructor(){
+    constructor() {
         super();
     }
 
-mostrar_error_campo(id, codigoerror){
-	document.getElementById('div_error_'+id).style.display = 'inline';
-	document.getElementById('div_error_'+id).innerHTML = codigoerror;
-    document.getElementById('div_error_'+id).className = codigoerror;
-    document.getElementById(id).className = 'errorcampo';
-	document.getElementById('submit_button').focus();
-    setLang();
-}
+    mostrar_error_campo(id, codigoerror) {
+        document.getElementById('div_error_' + id).style.display = 'inline';
+        document.getElementById('div_error_' + id).innerHTML = codigoerror;
+        document.getElementById('div_error_' + id).className = codigoerror;
+        document.getElementById(id).className = 'errorcampo';
+        document.getElementById('submit_button').focus();
+        setLang();
+    }
 
-mostrar_exito_campo(id){
-	document.getElementById('div_error_'+id).style.display = 'none';
-	document.getElementById('div_error_'+id).innerHTML = '';
-    document.getElementById(id).className = 'exitocampo';
-}
+    mostrar_exito_campo(id) {
+        document.getElementById('div_error_' + id).style.display = 'none';
+        document.getElementById('div_error_' + id).innerHTML = '';
+        document.getElementById(id).className = 'exitocampo';
+    }
 
-modificarcolumnasamostrar(atributo){
+    modificarcolumnasamostrar(atributo) {
 
 
-    let nuevascolumnas = Array();
-    if (this.columnasamostrar.includes(atributo)){
-        // borrar ese atributo
-        for (let i=0;i<this.columnasamostrar.length;i++){
-            if (this.columnasamostrar[i] == atributo){}
-            else{
-                nuevascolumnas.push(this.columnasamostrar[i]);
+        let nuevascolumnas = Array();
+        if (this.columnasamostrar.includes(atributo)) {
+            // borrar ese atributo
+            for (let i = 0; i < this.columnasamostrar.length; i++) {
+                if (this.columnasamostrar[i] == atributo) { }
+                else {
+                    nuevascolumnas.push(this.columnasamostrar[i]);
+                }
+            }
+            this.columnasamostrar = nuevascolumnas;
+        }
+        else {
+            // añadir
+            this.columnasamostrar.push(atributo);
+        }
+
+
+        this.crearTablaDatos();
+    }
+
+    mostrarocultarcolumnas() {
+
+        for (let columna of this.atributos) {
+            if (this.columnasamostrar.includes(columna)) { }
+            else {
+                //document.querySelector("th[class='"+columna+" tabla-th-"+columna+"']").style.display = 'none';
+                document.querySelector("th[class='" + columna + "']").style.display = 'none';
+                let arraytds = document.querySelectorAll("td[class='tabla-td-" + columna + "']");
+                for (let i = 0; i < arraytds.length; i++) {
+                    arraytds[i].style.display = 'none';
+                }
             }
         }
-        this.columnasamostrar = nuevascolumnas;
-    }
-    else{
-        // añadir
-        this.columnasamostrar.push(atributo);
+
+
     }
 
+    construirSelect() {
 
-    this.crearTablaDatos();
-}
+        document.getElementById("seleccioncolumnas").innerHTML = '';
 
-mostrarocultarcolumnas(){
-
-    for (let columna of this.atributos){
-        if (this.columnasamostrar.includes(columna)){}
-        else{
-            //document.querySelector("th[class='"+columna+" tabla-th-"+columna+"']").style.display = 'none';
-            document.querySelector("th[class='"+columna+"']").style.display = 'none';
-            let arraytds = document.querySelectorAll("td[class='tabla-td-"+columna+"']");
-            for (let i=0;i<arraytds.length;i++){
-                arraytds[i].style.display = 'none';
+        let optionselect = '';
+        for (let atributo of this.atributos) {
+            optionselect = document.createElement('option');
+            optionselect.className = atributo;
+            optionselect.innerHTML = atributo;
+            optionselect.setAttribute("onclick", "validar.modificarcolumnasamostrar('" + atributo + "');");
+            if (this.columnasamostrar.includes(atributo)) {
+                optionselect.selected = true;
             }
+            document.getElementById("seleccioncolumnas").append(optionselect);
         }
+        setLang();
     }
 
+    hacertabla() {
 
-}
+        // titulos
 
-construirSelect(){
+        document.getElementById("text_title_page").className = "text_titulo_page_" + this.entidad;
+        document.getElementById('title_page').style.display = 'block';
 
-    document.getElementById("seleccioncolumnas").innerHTML = '';
-    
-    let optionselect = '';
-    for (let atributo of this.atributos){
-        optionselect = document.createElement('option');
-        optionselect.className = atributo;
-        optionselect.innerHTML = atributo;
-        optionselect.setAttribute("onclick","validar.modificarcolumnasamostrar('"+atributo+"');");
-        if (this.columnasamostrar.includes(atributo)){
-            optionselect.selected = true;
-        }
-        document.getElementById("seleccioncolumnas").append(optionselect);
-    }
-    setLang();
-}
+        this.atributos = Object.keys(this.datos[0]);
 
-hacertabla(){
+        var textolineatitulos = '<tr>';
 
-    // titulos
+        for (let atributo of this.atributos) {
 
-    document.getElementById("text_title_page").className = "text_titulo_page_"+this.entidad;
-    document.getElementById('title_page').style.display = 'block';
-
-    this.atributos = Object.keys(this.datos[0]);
-
-    var textolineatitulos = '<tr>';
-
-    for (let atributo of this.atributos){
-    
-        textolineatitulos += '<th class="'+atributo+'">'+atributo+'</th>';
-    
-    }  
-        
-    textolineatitulos += '<th colspan="3"></th>';
-    
-    textolineatitulos += '</tr>';
-    
-    let cabecera = document.getElementById("titulostablacabecera");
-    cabecera.innerHTML = textolineatitulos;
-
-    // filas
-
-    var textolineadatos = ''; 
-
-    for (let i=0;i<this.datos.length;i++){
-    
-        textolineadatos += '<tr style="background-color:grey;">';
-
-        for (let clave in this.datos[i]){
-
-            if (this.datosespecialestabla.includes(clave)){
-                let valorcolumna = this.cambiardatosespecialestabla(clave,this.datos[i][clave]);
-                textolineadatos += '<td class="tabla-td-'+clave+'">'+valorcolumna+'</td>';
-            }
-            else{
-                textolineadatos += '<td class="tabla-td-'+clave+'">'+this.datos[i][clave]+'</td>';
-            }
+            textolineatitulos += '<th class="' + atributo + '">' + atributo + '</th>';
 
         }
 
-        // crear los td para cada boton de llamada a funcion de formulario de accion (EDIT, DELETE O SHOWCURRENT)
+        textolineatitulos += '<th colspan="3"></th>';
 
-        let lineaedit = this.crearboton(this.entidad, 'EDIT', JSON.stringify(this.datos[i]));
-        let lineadelete = this.crearboton(this.entidad, 'DELETE', JSON.stringify(this.datos[i]));
-        let lineashowcurrent = this.crearboton(this.entidad, 'SHOWCURRENT', JSON.stringify(this.datos[i]));
+        textolineatitulos += '</tr>';
 
-        textolineadatos += lineaedit+lineadelete+lineashowcurrent;
+        let cabecera = document.getElementById("titulostablacabecera");
+        cabecera.innerHTML = textolineatitulos;
 
-        textolineadatos += '</tr>';
+        // filas
+
+        var textolineadatos = '';
+
+        for (let i = 0; i < this.datos.length; i++) {
+
+            textolineadatos += '<tr style="background-color:grey;">';
+
+            for (let clave in this.datos[i]) {
+
+                if (this.datosespecialestabla.includes(clave)) {
+                    let valorcolumna = this.cambiardatosespecialestabla(clave, this.datos[i][clave]);
+                    textolineadatos += '<td class="tabla-td-' + clave + '">' + valorcolumna + '</td>';
+                }
+                else {
+                    textolineadatos += '<td class="tabla-td-' + clave + '">' + this.datos[i][clave] + '</td>';
+                }
+
+            }
+
+            // crear los td para cada boton de llamada a funcion de formulario de accion (EDIT, DELETE O SHOWCURRENT)
+
+            let lineaedit = this.crearboton(this.entidad, 'EDIT', JSON.stringify(this.datos[i]));
+            let lineadelete = this.crearboton(this.entidad, 'DELETE', JSON.stringify(this.datos[i]));
+            let lineashowcurrent = this.crearboton(this.entidad, 'SHOWCURRENT', JSON.stringify(this.datos[i]));
+
+            textolineadatos += lineaedit + lineadelete + lineashowcurrent;
+
+            textolineadatos += '</tr>';
+
+        }
+
+        let cuerpo = document.getElementById('muestradatostabla');
+        cuerpo.innerHTML = textolineadatos;
+
+        setLang();
 
     }
+
+    /*
     
-    let cuerpo = document.getElementById('muestradatostabla');
-    cuerpo.innerHTML = textolineadatos;
-
-    setLang();
-
-}
-
-/*
-
-mostrarTitulos(columnasamostrar){
-
-            let textolineatitulos = '<tr>';
-        
-            for (let atributo in columnasamostrar){
-        
-                textolineatitulos += '<th class="'+columnasamostrar[atributo]+'">'+columnasamostrar[atributo]+'</th>';
-        
-            }
-        
-            textolineatitulos += '<th colspan="3"></th>';
-        
-            textolineatitulos += '</tr>';
-        
-            let cabecera = document.getElementById("titulostablacabecera");
-            cabecera.innerHTML = textolineatitulos;
-        
-            return cabecera;
-        
-} 
+    mostrarTitulos(columnasamostrar){
+    
+                let textolineatitulos = '<tr>';
             
-*/
+                for (let atributo in columnasamostrar){
+            
+                    textolineatitulos += '<th class="'+columnasamostrar[atributo]+'">'+columnasamostrar[atributo]+'</th>';
+            
+                }
+            
+                textolineatitulos += '<th colspan="3"></th>';
+            
+                textolineatitulos += '</tr>';
+            
+                let cabecera = document.getElementById("titulostablacabecera");
+                cabecera.innerHTML = textolineatitulos;
+            
+                return cabecera;
+            
+    } 
+                
+    */
 
-crearboton(entidad, accion, parametros){
+    crearboton(entidad, accion, parametros) {
         let columna = document.createElement('td');
         let opcion = document.createElement('img');
-        opcion.src = "./iconos/"+accion+'.png';
-        let textoonclick = "validar.createForm_"+accion+"("+parametros+");"
-        opcion.setAttribute('onclick',textoonclick);
+        opcion.src = "./iconos/" + accion + '.png';
+        let textoonclick = "validar.createForm_" + accion + "(" + parametros + ");"
+        opcion.setAttribute('onclick', textoonclick);
         columna.appendChild(opcion);
         return columna.outerHTML;
+
+    }
+
+    /*
     
-}
-
-/*
-
-mostrarDatos(entidad, datosfilas, columnasamostrar){
-
-            let textolineadatos = '';
-
-            for (let i=0;i<datosfilas.length;i++){
-        
-                textolineadatos += '<tr style="background-color:grey;">';
+    mostrarDatos(entidad, datosfilas, columnasamostrar){
     
-                for (let j=0;j<columnasamostrar.length;j++){
+                let textolineadatos = '';
     
-                    let clave = columnasamostrar[j];
-        
-                        if (this.datosespecialestabla.includes(clave)){
-                            let valorcolumna = this.cambiardatosespecialestabla(clave,datosfilas[i][clave]);
-                            textolineadatos += '<td>'+valorcolumna+'</td>';
-                        }
-                        else{
-                            textolineadatos += '<td>'+datosfilas[i][clave]+'</td>';
-                        }
-        
-                }
-        
-                // crear los td para cada boton de llamada a funcion de formulario de accion (EDIT, DELETE O SHOWCURRENT)
-        
-                let lineaedit = this.crearboton(entidad, 'EDIT', JSON.stringify(datosfilas[i]));
-                let lineadelete = this.crearboton(entidad, 'DELETE', JSON.stringify(datosfilas[i]));
-                let lineashowcurrent = this.crearboton(entidad, 'SHOWCURRENT', JSON.stringify(datosfilas[i]));
-        
-                textolineadatos += lineaedit+lineadelete+lineashowcurrent;
-        
-                textolineadatos += '</tr>';  star_date_project :{
-            html:{
-                tag:'input',
-                type:'date',
-            },
-            is_not_null: true,
-            component_visible_size: 10,
-            validation_rules:{
-                ADD: {
-                  
-                    format: ['^[A-Za-z ]+$', "name_project_format_KO"]
-                    //falta cambiar la expresion regular para los date 
-                },
-                EDIT: {
-                   
-                    format: ['^[A-Za-z ]+$', "name_project_format_KO"]
-                },
-                SEARCH: 
-                    format: ['^[A-Za-z ]+$', "name_project_format_KO"]
-                },
-            },
-        
-            }
+                for (let i=0;i<datosfilas.length;i++){
             
-            let cuerpo = document.getElementById('muestradatostabla');
-            cuerpo.innerHTML = textolineadatos;
+                    textolineadatos += '<tr style="background-color:grey;">';
         
-        }
-    
-    */ 
-    
-    cerrar_formulario(){
+                    for (let j=0;j<columnasamostrar.length;j++){
+        
+                        let clave = columnasamostrar[j];
+            
+                            if (this.datosespecialestabla.includes(clave)){
+                                let valorcolumna = this.cambiardatosespecialestabla(clave,datosfilas[i][clave]);
+                                textolineadatos += '<td>'+valorcolumna+'</td>';
+                            }
+                            else{
+                                textolineadatos += '<td>'+datosfilas[i][clave]+'</td>';
+                            }
+            
+                    }
+            
+                    // crear los td para cada boton de llamada a funcion de formulario de accion (EDIT, DELETE O SHOWCURRENT)
+            
+                    let lineaedit = this.crearboton(entidad, 'EDIT', JSON.stringify(datosfilas[i]));
+                    let lineadelete = this.crearboton(entidad, 'DELETE', JSON.stringify(datosfilas[i]));
+                    let lineashowcurrent = this.crearboton(entidad, 'SHOWCURRENT', JSON.stringify(datosfilas[i]));
+            
+                    textolineadatos += lineaedit+lineadelete+lineashowcurrent;
+            
+                    textolineadatos += '</tr>';  star_date_project :{
+                html:{
+                    tag:'input',
+                    type:'date',
+                },
+                is_not_null: true,
+                component_visible_size: 10,
+                validation_rules:{
+                    ADD: {
+                      
+                        format: ['^[A-Za-z ]+$', "name_project_format_KO"]
+                        //falta cambiar la expresion regular para los date 
+                    },
+                    EDIT: {
+                       
+                        format: ['^[A-Za-z ]+$', "name_project_format_KO"]
+                    },
+                    SEARCH: 
+                        format: ['^[A-Za-z ]+$', "name_project_format_KO"]
+                    },
+                },
+            
+                }
+                
+                let cuerpo = document.getElementById('muestradatostabla');
+                cuerpo.innerHTML = textolineadatos;
+            
+            }
+        
+        */
+
+    cerrar_formulario() {
 
         document.getElementById("IU_form").innerHTML = '';
-        document.getElementById("IU_form").setAttribute('onsubmit',"");
-        document.getElementById("IU_form").setAttribute('action',"");
+        document.getElementById("IU_form").setAttribute('onsubmit', "");
+        document.getElementById("IU_form").setAttribute('action', "");
         document.getElementById("div_IU_form").style.display = 'none';
 
     }
 
-    cerrar_test(){
+    cerrar_test() {
         document.getElementById("div_IU_test").style.display = 'none';
     }
 
 
-    cerrar_tabla(){
+    cerrar_tabla() {
 
         document.getElementById("titulostablacabecera").innerHTML = '';
         document.getElementById("muestradatostabla").innerHTML = '';
@@ -261,7 +261,7 @@ mostrarDatos(entidad, datosfilas, columnasamostrar){
 
     }
 
-    mostrar_boton_test(){
+    mostrar_boton_test() {
         document.getElementById('botonTEST').style.display = 'inline';
     }
 
@@ -272,69 +272,90 @@ mostrarDatos(entidad, datosfilas, columnasamostrar){
         setLang();
     }
 
-    cerrarModalError(){
+    cerrarModalError() {
         document.getElementById('error_action_modal').style.display = 'none';
         document.getElementById('modal_action_overlay').style.display = 'none';
         //document.getElementById('error_action_msg').removeAttribute('class');
     }
-    createForm(formType, entityData) {
-        const entityClass = entityData.entityClass;
-    
-        if (typeof entityClass.cargar_formulario_html === 'function') {
-            // Si existe cargar_formulario_html, se ejecuta
-            entityClass.cargar_formulario_html(formType);
-        } else {
-            // Si no existe, se genera dinámicamente el formulario
-            this.cargar_formulario_dinamico(formType, entityData);
-        }
-    }
-    
 
 
-    createForm(){
-        if(eval(this.cargar_formulario_dinamico)){
+    createForm() {
+        if (eval(this.cargar_formulario_dinamico)) {
             this.cargar_formulario_dinamico;
-        }else{
-            let formulario="";
-
+        } else {
+            const nombreVariable = `${this.entidad}_estructura`;
+            const estructura = window[nombreVariable];
+            const tipoFormulario = this.tipo_formulario || 'ADD';
+        
+            let formulario = "";
+        
+            for (let atributo of estructura.attributes_list) {
+                const config = estructura.attributes[atributo];
+        
+                // Si no hay reglas de validación para este tipo de formulario, se omite el campo
+                if (!config.validation_rules || !config.validation_rules[tipoFormulario]) {
+                    continue;
+                }
+        
+                const html = config.html;
+                let inputHTML = "";
+        
+                if (html.tag === 'input') {
+                    inputHTML = `<input type="${html.type || 'text'}" id="${atributo}" name="${atributo}" ${html.multiple ? 'multiple' : ''}>`;
+                } else if (html.tag === 'textarea') {
+                    inputHTML = `<textarea id="${atributo}" name="${atributo}" rows="${html.rows || 3}" cols="${html.columns || 30}"></textarea>`;
+                } else if (html.tag === 'select') {
+                    inputHTML = `<select id="${atributo}" name="${atributo}">`;
+                    for (let option of html.options) {
+                        inputHTML += `<option value="${option}">${option}</option>`;
+                    }
+                    inputHTML += `</select>`;
+                }
+        
+                formulario += `
+                    <label for="${atributo}">${atributo}</label>
+                    ${inputHTML}
+                    <div id="div_error_${atributo}" class="error"></div>
+                `;
+            }
+        
+            document.getElementById('IU_form').innerHTML = formulario;
         }
+        
     }
-
-
-
 
     cargar_formulario_dinamico(formType, entityData) {
         const formContainer = document.createElement('form');
         formContainer.id = `${formType}_form`;
         formContainer.className = 'dynamic-form';
-    
+
         // Iterar sobre la estructura de datos de la entidad para generar los campos
         entityData.fields.forEach(field => {
             const fieldContainer = document.createElement('div');
             fieldContainer.className = 'form-field';
-    
+
             const label = document.createElement('label');
             label.htmlFor = field.name;
             label.textContent = field.label;
-    
+
             const input = document.createElement('input');
             input.id = field.name;
             input.name = field.name;
             input.type = field.type || 'text'; // Tipo de campo (por defecto 'text')
-    
+
             fieldContainer.appendChild(label);
             fieldContainer.appendChild(input);
             formContainer.appendChild(fieldContainer);
         });
-    
+
         // Añadir botón de acción según el tipo de formulario
         const submitButton = document.createElement('button');
         submitButton.type = 'submit';
         submitButton.textContent = formType;
         formContainer.appendChild(submitButton);
-    
+
         // Insertar el formulario en el DOM
         document.body.appendChild(formContainer);
     }
-    
+
 } 
