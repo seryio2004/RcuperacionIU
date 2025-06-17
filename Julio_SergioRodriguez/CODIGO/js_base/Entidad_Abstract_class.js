@@ -170,10 +170,15 @@ class EntidadAbstracta extends DOM_class{
     
     }
 
-	cambiacolumnastabla(atributo){
+    cambiacolumnastabla(atributo){
 
-		document.querySelector("th[class='"+atributo+"']").style.display = 'none';
+                document.querySelector("th[class='"+atributo+"']").style.display = 'none';
 
-	}
+        }
+
+    // Hook to allow entity classes to modify value representation
+    change_value_IU(clave, valor){
+        return valor;
+    }
 
 }
