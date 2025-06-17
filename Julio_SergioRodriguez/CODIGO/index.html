@@ -17,7 +17,7 @@
 
 		<!--<script type="text/javascript" src="./js_core/DOM_class.js"></script>
 		<script type="text/javascript" src="./js_base/EntidadAbstracta.js"></script>-->
-		<script type="text/javascript" src="../CODIGO/js_core/DOM_class.js"></script>º
+		<script type="text/javascript" src="../CODIGO/js_core/DOM_class.js"></script>
 		<script type="text/javascript" src="../CODIGO/js_base/Entidad_Abstract_class.js"></script>
 
 			<!-- aqui los ficheros implementados para la ET2 -->
@@ -35,6 +35,7 @@
 		<!-- este es el script que carga las librerias ajax que usamos para acceder al back -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
+        <script type="text/javascript">var validar;</script>
 	</head>
 
 	<body onload="">
@@ -51,7 +52,7 @@
 
 		<aside id='div-menu'>
 			<ol>
-				<li class="opcionmenu"><span class="text_characteristic" onclick="validar = new characteristic();">	characteristic</span></li>
+				<li class="opcionmenu"><span class="text_characteristic" onclick="validar = new characteristic(); validar.inicializar();">	characteristic</span></li>
 				<li class="opcionmenu"><span class="text_funcionalidad" onclick="validar = new funcionalidad();">Funcionalidad</span></li>
 			</ol>
 		</aside>
