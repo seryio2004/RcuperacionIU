@@ -75,6 +75,9 @@ class test{
             // creo objeto html sino cargo el formulario (para crear cada elemento dinamicamente dentro del form)           
             
             //meto valor en objeto (esto depende del tipo de elemento de formulario)
+            if(document.getElementById(campotest) == null){
+                console.log('No existe el campo '+campotest);
+            }
             document.getElementById(campotest).value = valortest; 
 
             //llamo a la funcion de validacion del campo según su accion

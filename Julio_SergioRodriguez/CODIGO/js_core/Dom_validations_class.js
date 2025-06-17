@@ -38,50 +38,69 @@ class Dom_validations extends DOM_class {
         }
     }
 
-	comprobarCampo(accion, campo) {
-		let tests;
-		if (campo.startsWith("nuevo")) {
-			let campoCorregido = campo.substring("nuevo_".length).trim();
-			tests = this.obtenerEstructura2()[accion][campoCorregido];
-		} else {
-			tests = this.obtenerEstructura2()[accion][campo];
-		}
-		
-		for (test in tests) {
-			switch (test) {
-				case "min_length":
-					if (!(this.validaciones.min_size(campo, tests[test].valor))) {
-						this.mostrar_error_campo(campo, campo + "_length_min_KO");
-						return campo + "_length_min_KO";
-					}
-					break;
-				case "max_length":
-					if (!(this.validaciones.max_size(campo, tests[test].valor))) {
-						this.mostrar_error_campo(campo, campo + "_length_max_KO");
-						return campo + "_length_max_KO";
-					}
-					break;
-				case "format":
-					if (!(this.validaciones.format(campo, tests[test].valor))) {
-						this.mostrar_error_campo(campo, campo + "_format_KO");
-						return campo + "_format_KO";
-					}
-					break;
-				case "format_name_file":
-					if (!(this.validaciones.format_name_file(document.getElementById(campo).files[0], tests[test].valor))) {
-						this.mostrar_error_campo(campo, campo + "_format_name_file_KO");
-						return campo + "_format_name_file_KO";
-					}
-					break;
-				case "type_file":
-					if (!(this.validaciones.type_file(document.getElementById(campo).files[0], tests[test].valor))) {
-						this.mostrar_error_campo(campo, campo + "_type_file_KO");
-						return campo + "_type_file_KO";
-					}
-					break;
-			}
-		}
-		this.mostrar_exito_campo(campo);
-	}
+	comprobarCampo(campo, accion, estructura = this.estructura, atomicValidations = this.validaciones) {
+        const atributo = campo.startsWith('nuevo_') ? campo.substring('nuevo_'.length) : campo;
+        const reglas = estructura?.attributes?.[atributo]?.validation_rules?.[accion];
 
+        if (!reglas) {
+                this.mostrar_exito_campo(campo);
+                return true;
+        }
+
+        for (const [regla, valor] of Object.entries(reglas)) {
+                switch (regla) {
+                        case 'min_size':
+                                if (!atomicValidations.min_size(campo, valor[0])) {
+                                        this.mostrar_error_campo(campo, valor[1]);
+                                        return valor[1];
+                                }
+                                break;
+                        case 'max_size':
+                                if (!atomicValidations.max_size(campo, valor[0])) {
+                                        this.mostrar_error_campo(campo, valor[1]);
+                                        return valor[1];
+                                }
+                                break;
+                        case 'format':
+                                if (!atomicValidations.format(campo, valor[0])) {
+                                        this.mostrar_error_campo(campo, valor[1]);
+                                        return valor[1];
+                                }
+                                break;
+                        case 'format_name_file': {
+                                const file = document.getElementById(campo).files[0];
+                                if (!file || !atomicValidations.format_name_file(file, valor[0])) {
+                                        this.mostrar_error_campo(campo, valor[1]);
+                                        return valor[1];
+                                }
+                                break;
+                        }
+                        case 'file_type': {
+                                const file = document.getElementById(campo).files[0];
+                                if (!file || !atomicValidations.type_file(file, valor[0])) {
+                                        this.mostrar_error_campo(campo, valor[1]);
+                                        return valor[1];
+                                }
+                                break;
+                        }
+                        case 'max_size_file': {
+                                const file = document.getElementById(campo).files[0];
+                                if (!file || !atomicValidations.max_size_file(file, valor[0])) {
+                                        this.mostrar_error_campo(campo, valor[1]);
+                                        return valor[1];
+                                }
+                                break;
+                        }
+                        case 'no_file':
+                                if (document.getElementById(campo).files.length === 0) {
+                                        this.mostrar_error_campo(campo, valor);
+                                        return valor;
+                                }
+                                break;
+                }
+        }
+
+        this.mostrar_exito_campo(campo);
+        return true;
+}
 }

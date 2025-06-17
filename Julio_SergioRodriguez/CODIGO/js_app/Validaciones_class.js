@@ -1,9 +1,6 @@
 class validacionesatomicas {
     constructor() {}
 
-    constructor(){
-		
-	}
 	
 	//min_size()
 	//@param id Id objeto dom

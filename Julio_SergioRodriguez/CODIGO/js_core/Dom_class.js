@@ -285,15 +285,16 @@ class DOM_class extends test {
         } else {
             this.cargar_formulario_dinamico();
         }
-
-        for (let input of document.getElementById('IU_form').querySelectorAll('input, textarea, select')) {
+        console.log(document.getElementById('IU_form').querySelectorAll('input, textarea'));
+        for (let input of document.getElementById('IU_form').querySelectorAll('input, textarea')) {
+            
             const atributo = input.id;
             //autoincrementales
             if (action === 'ADD' || action === 'EDIT') {
                 const autoIn = this.estructura?.attributes?.[atributo]?.is_autoincrement || false;
                 if (autoIn) {
-                    input.classList.add('hidden');
-                    document.getElementById(`label_${atributo}`).classList.add('hidden');
+                    input.display="none";
+                    document.getElementById(`label_${atributo}`).display="none";
                     document.getElementById(`div_error_${atributo}`).classList.add('hidden');
                 }
             }
@@ -328,8 +329,9 @@ class DOM_class extends test {
 
         switch (action) {
             case 'ADD':
-                document.getElementById('IU_form').innerHTML += `<button type="submit" id="submit_button" class="btn btn-primary">${this.textos['text_contenido_boton_submit_ADD']}</button>`;
+                document.getElementById('IU_form').innerHTML += `<button type="button" id="submit_button" onclick="validar.submit_test('ADD')">niger</button>`;
                 break;
+                /*
             case 'SEARCH':
                 document.getElementById('IU_form').innerHTML += `<button type="submit" id="submit_button" class="btn btn-primary">${this.textos['text_contenido_boton_submit_SEARCH']}</button>`;
                 break;
@@ -339,7 +341,7 @@ class DOM_class extends test {
             case 'DELETE':
                 document.getElementById('IU_form').innerHTML += `<button type="submit" id="submit_button" class="btn btn-primary">${this.textos['text_contenido_boton_submit_DELETE']}</button>`;
                 break;
-
+*/
 
         }
 
@@ -388,13 +390,15 @@ class DOM_class extends test {
         let contenido = '';
         // Recorremos los atributos de la estructura
         for (let attribute of attributes) {
-          const type = this.structure?.attributes?.[attribute]?.html?.type || "";
-          const tag = this.structure?.attributes?.[attribute]?.html?.tag || "";
+     
+          const type = this.estructura?.attributes?.[attribute]?.html?.type || "";
+          const tag = this.estructura?.attributes?.[attribute]?.html?.tag || "";
     
           switch (tag) {
             case "input":
               switch (type) {
                 case "text":
+                
                   contenido += `<label for="${attribute}">${attribute}</label>` +
                                  `<input type="text" id="${attribute}" name="${attribute}">`;
                   break;
