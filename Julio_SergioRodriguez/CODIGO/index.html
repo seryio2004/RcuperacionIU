@@ -3,7 +3,7 @@
 
 	<head>
 		
-               <link rel="stylesheet" type="text/css" href="./css/index.css" media="screen" />
+               <link rel="stylesheet" type="text/css" href="./css/IU.css" media="screen" />
 		
 		<!-- ficheros de idiomas -->
 		<script type="text/javascript" src="./locale/idioma.js"></script>
@@ -19,14 +19,21 @@
 		<script type="text/javascript" src="./js_base/EntidadAbstracta.js"></script>-->
 
                <script type="text/javascript" src="./js_core/Dom_class.js"></script>
+
                <script type="text/javascript" src="./js_base/Entidad_Abstract_class.js"></script>
 
 
 			<!-- aqui los ficheros implementados para la ET2 -->
 
-		<script type="text/javascript" src="./js_app/Validaciones_class.js"></script>
+               <script type="text/javascript" src="./js_app/Validaciones_class.js"></script>
                <script type="text/javascript" src="./js_app/characteristic_estructura.js"></script>
                <script type="text/javascript" src="./js_app/characteristic.js"></script>
+               <script type="text/javascript" src="./js_app/analysis_preparation_estructura.js"></script>
+               <script type="text/javascript" src="./js_app/analysis_preparation.js"></script>
+               <script type="text/javascript" src="./js_app/project_estructura.js"></script>
+               <script type="text/javascript" src="./js_app/project.js"></script>
+
+               <script type="text/javascript" src="./js_app/test_definitions.js"></script>
 
 		<!-- aqui los ficheros de test de cada entidad -->
 		
@@ -45,16 +52,19 @@
 			<img src="./iconos/Spain.png" onclick="setLang('ES');" />
 			<img src="./iconos/United-Kingdom.png" onclick="setLang('EN');" />
 
-			<img id="botonTEST" src="./iconos/TEST.png" onclick="validar.test_run();"/>
-		</header>
+                        <img id="botonTEST" src="./iconos/TEST.png" onclick="validar.test_run();"/>
+                        <a href="API.html"><img src="./iconos/FILE.png" alt="API" /></a>
+                </header>
 
 		<nav class='bordeado'><span class="text_titulo_menu" onclick="menu_work();">Opciones de ménu</span></nav>
 
 		<aside id='div-menu'>
 			<ol>
 				<li class="opcionmenu"><span class="text_characteristic" onclick="validar = new characteristic(); validar.inicializar();">	characteristic</span></li>
+                                <li class="opcionmenu"><span class="text_analysis_preparation" onclick="validar = new analysis_preparation(); validar.inicializar();">analysis_preparation</span></li>
+                                <li class="opcionmenu"><span class="text_project" onclick="validar = new project(); validar.inicializar();">project</span></li>
+                                <li class="opcionmenu"><span class="text_funcionalidad" onclick="validar = new funcionalidad();">Funcionalidad</span></li>
 
-				<li class="opcionmenu"><span class="text_funcionalidad" onclick="validar = new funcionalidad();">Funcionalidad</span></li>
 
 			</ol>
 		</aside>

@@ -42,7 +42,12 @@ class ExternalAccess{
             })
     
         });
-    
+
+    }
+
+    // wrapper used by the interface classes
+    back_request(formulario, controlador, action, datosextra=null){
+        return this.peticionBackGeneral(formulario, controlador, action, datosextra);
     }
 
 

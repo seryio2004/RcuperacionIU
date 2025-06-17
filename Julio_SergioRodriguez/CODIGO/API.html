@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>API</title>
+    <link rel="stylesheet" type="text/css" href="./css/IU.css" />
+</head>
+<body>
+<h1>API Documentation</h1>
+<h2>Core Classes</h2>
+<ul>
+<li><strong>DOM_class</strong> - creates tables and forms. Methods: createForm(tipo), load_data(values).</li>
+<li><strong>EntidadAbstracta</strong> - base entity. Methods: inicializar(), ADD(), EDIT(), DELETE(), SEARCH(), change_value_IU(valor).</li>
+<li><strong>Dom_validations</strong> - validates forms. Methods: load_validations(accion), submit_test(accion).</li>
+<li><strong>ExternalAccess</strong> - communication with back. Method: back_request(form, ctrl, action, extra).</li>
+<li><strong>test</strong> - executes entity tests. Method: test_run().</li>
+<li><strong>validacionesatomicas</strong> - atomic validation helpers.</li>
+</ul>
+<p>Classes grouped by purpose:</p>
+<ul>
+<li>Tests: test, Dom_validations</li>
+<li>HTML generation: DOM_class, EntidadAbstracta</li>
+<li>Validations: validacionesatomicas</li>
+</ul>
+</body>
+</html>
