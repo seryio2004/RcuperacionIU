@@ -342,6 +342,12 @@ class DOM_class extends test {
 
 
         }
+
+
+
+
+
+
     }
 
     cargar_formulario_dinamico() {
@@ -379,7 +385,8 @@ class DOM_class extends test {
         document.getElementById('IU_form').innerHTML = formulario;
         */
         const attributes = this.estructura.attributes_list || [];
-
+        let contenido = '';
+        // Recorremos los atributos de la estructura
         for (let attribute of attributes) {
           const type = this.structure?.attributes?.[attribute]?.html?.type || "";
           const tag = this.structure?.attributes?.[attribute]?.html?.tag || "";
@@ -388,15 +395,15 @@ class DOM_class extends test {
             case "input":
               switch (type) {
                 case "text":
-                  formContent += `<label for="${attribute}">${attribute}</label>` +
+                  contenido += `<label for="${attribute}">${attribute}</label>` +
                                  `<input type="text" id="${attribute}" name="${attribute}">`;
                   break;
                 case "number":
-                  formContent += `<label for="${attribute}">${attribute}</label>` +
+                  contenido += `<label for="${attribute}">${attribute}</label>` +
                                  `<input type="number" id="${attribute}" name="${attribute}">`;
                   break;
                 case "file":
-                  formContent += `<label for="${attribute}">${attribute}</label>` +
+                  contenido += `<label for="${attribute}">${attribute}</label>` +
                                  `<input type="file" id="${attribute}" name="${attribute}">` +
                                  `<span id="div_error_${attribute}"></span>` +
                                  `<a id="link_${attribute}" href="http://193.147.87.202/c12/files_uploaded/files_${attribute}/">` +
@@ -409,21 +416,23 @@ class DOM_class extends test {
             case "textarea":
               const cols = this.structure?.attributes?.[attribute]?.html?.cols || 50;
               const rows = this.structure?.attributes?.[attribute]?.html?.rows || 10;
-              formContent += `<label for="${attribute}">${attribute}</label>` +
+              contenido += `<label for="${attribute}">${attribute}</label>` +
                              `<textarea id="${attribute}" name="${attribute}" rows="${rows}" cols="${cols}"></textarea>`;
               break;
     
             case "select":
               const options = this.structure?.attributes?.[attribute]?.html?.options || [];
-              formContent += `<label for="${attribute}">${attribute}</label>` +
+              contenido += `<label for="${attribute}">${attribute}</label>` +
                              `<select name="${attribute}" id="${attribute}">`;
               for (const option of options) {
-                formContent += `<option value="${option}" class="option_slot">${option}</option>`;
+                contenido += `<option value="${option}" class="option_slot">${option}</option>`;
               }
-              formContent += `</select>`;
+              contenido += `</select>`;
               break;
           }
         }  
+        document.getElementById('IU_form').innerHTML = contenido;
+        document.getElementById('div_IU_form').display = 'block';
     }
 
     load_data(values) {
