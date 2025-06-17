@@ -1,10 +1,14 @@
-class Dom_validations extends DOM_class {
+class Dom_validations {
     constructor() {
-        super();
+    
     }
-    load_validations(formId, action, structure, atomicValidations) {
+    load_validations(formId = 'IU_form', action = this.accion, structure = this.estructura, atomicValidations = this.validaciones) {
         const formulario = document.getElementById(formId);
-        const inputs = Array.from(formulario.querySelector('input', 'textArea')).filter(el => !el.classList.contains('hidden'));
+        if (!formulario) return false;
+
+        const inputs = Array.from(formulario.querySelectorAll('input, textarea'))
+            .filter(el => !el.classList.contains('hidden'));
+
         for (const input of inputs) {
             const esValido = this.comprobarCampo(input.id, action, structure, atomicValidations);
             if (!esValido) {
@@ -14,27 +18,29 @@ class Dom_validations extends DOM_class {
         return true;
     }
     submit_test(accion) {
-        if (this.load_validations()) {
-            switch (accion) {
-                case 'ADD':
-                    this.ADD();
-                    break;
-                case 'EDIT':
-                    this.EDIT();
-                    break;
-                case 'SEARCH':
-                    this.SEARCH();
-                    break;
-                case 'DELETE':
-                    this.DELETE();
-                    break;
-                case 'SHOWCURRENT':
-                        this.SHOWCURRENT();
-                        break;
-                default:
-                    console.error('Acción no reconocida:', accion);
-                    break;
-            }
+        if (!this.load_validations('IU_form', accion, this.estructura, this.validaciones)) {
+            return;
+        }
+
+        switch (accion) {
+            case 'ADD':
+                this.ADD();
+                break;
+            case 'EDIT':
+                this.EDIT();
+                break;
+            case 'SEARCH':
+                this.SEARCH();
+                break;
+            case 'DELETE':
+                this.DELETE();
+                break;
+            case 'SHOWCURRENT':
+                this.SHOWCURRENT();
+                break;
+            default:
+                console.error('Acción no reconocida:', accion);
+                break;
         }
     }
 
@@ -57,13 +63,13 @@ class Dom_validations extends DOM_class {
                                 break;
                         case 'max_size':
                                 if (!atomicValidations.max_size(campo, valor[0])) {
-                                        this.mostrar_error_campo(campo, valor[1]);
+                                        atomicValidations.mostrar_error_campo(campo, valor[1]);
                                         return valor[1];
                                 }
                                 break;
                         case 'format':
                                 if (!atomicValidations.format(campo, valor[0])) {
-                                        this.mostrar_error_campo(campo, valor[1]);
+                                        domValidations.mostrar_error_campo(campo, valor[1]);
                                         return valor[1];
                                 }
                                 break;
