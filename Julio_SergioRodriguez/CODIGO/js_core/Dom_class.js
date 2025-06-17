@@ -294,15 +294,18 @@ class DOM_class extends test {
         } else {
             this.cargar_formulario_dinamico();
         }
-        console.log(document.getElementById('IU_form').querySelectorAll('input, textarea'));
-        for (let input of document.getElementById('IU_form').querySelectorAll('input, textarea')) {
-            
+        const formEl = document.getElementById('IU_form');
+        if (!formEl) return;
+        console.log(formEl.querySelectorAll('input, textarea'));
+        for (let input of formEl.querySelectorAll('input, textarea')) {
+
+            if (!input) continue;
             const atributo = input.id;
             //autoincrementales
             if (action === 'ADD' || action === 'EDIT') {
                 const autoIn = this.estructura?.attributes?.[atributo]?.is_autoincrement || false;
                 if (autoIn) {
-                    input.style.display = "none";
+                    if (input) input.style.display = "none";
                     const labelEl = document.querySelector(`label[for="${atributo}"]`);
                     if (labelEl) labelEl.style.display = "none";
                     const errorEl = document.getElementById(`div_error_${atributo}`);
@@ -314,14 +317,16 @@ class DOM_class extends test {
                 const esfichero = (this.estructura?.attributes?.[atributo]?.html?.type) === 'file';
                 if (esfichero) {
                     const linkEl = document.getElementById(`link_${atributo}`);
-                    if (linkEl) linkEl.classList.add('hidden');
+                    if (linkEl) {
+                        linkEl.classList.add('hidden');
+                    }
                 }
             }
 
             if (action === 'ADD') {
                 const esfichero = (this.estructura?.attributes?.[atributo]?.html?.type) === 'file';
                 if (esfichero) {
-                    input.classList.add('hidden');
+                    if (input) input.classList.add('hidden');
                     const labelEl = document.querySelector(`label[for="${atributo}"]`);
                     if (labelEl) labelEl.classList.add('hidden');
                     const errorEl = document.getElementById(`div_error_${atributo}`);
@@ -331,7 +336,7 @@ class DOM_class extends test {
 
             if (action === 'SEARCH' || action === 'SHOWCURRENT' || action === 'DELETE') {
                 if (atributo.startsWith('nuevo_') || atributo.startsWith('foto_')) {
-                    input.classList.add('hidden');
+                    if (input) input.classList.add('hidden');
                     const labelEl = document.querySelector(`label[for="${atributo}"]`);
                     if (labelEl) labelEl.classList.add('hidden');
                     const errorEl = document.getElementById(`div_error_${atributo}`);
