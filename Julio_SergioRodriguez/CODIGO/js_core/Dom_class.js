@@ -280,82 +280,96 @@ class DOM_class extends test {
 
 
     createForm() {
-        if (eval(this.cargar_formulario_dinamico)) {
-            this.cargar_formulario_dinamico;
+        document.getElementById('IU_form').innerHTML = '';
+
+        if (typeof this.cargar_formulario_html === 'function') {
+            this.cargar_formulario_html();
         } else {
-            const nombreVariable = `${this.entidad}_estructura`;
-            const estructura = window[nombreVariable];
-            const tipoFormulario = this.tipo_formulario || 'ADD';
-        
-            let formulario = "";
-        
-            for (let atributo of estructura.attributes_list) {
-                const config = estructura.attributes[atributo];
-        
-                // Si no hay reglas de validación para este tipo de formulario, se omite el campo
-                if (!config.validation_rules || !config.validation_rules[tipoFormulario]) {
-                    continue;
-                }
-        
-                const html = config.html;
-                let inputHTML = "";
-        
-                if (html.tag === 'input') {
-                    inputHTML = `<input type="${html.type || 'text'}" id="${atributo}" name="${atributo}" ${html.multiple ? 'multiple' : ''}>`;
-                } else if (html.tag === 'textarea') {
-                    inputHTML = `<textarea id="${atributo}" name="${atributo}" rows="${html.rows || 3}" cols="${html.columns || 30}"></textarea>`;
-                } else if (html.tag === 'select') {
-                    inputHTML = `<select id="${atributo}" name="${atributo}">`;
-                    for (let option of html.options) {
-                        inputHTML += `<option value="${option}">${option}</option>`;
-                    }
-                    inputHTML += `</select>`;
-                }
-        
-                formulario += `
-                    <label for="${atributo}">${atributo}</label>
-                    ${inputHTML}
-                    <div id="div_error_${atributo}" class="error"></div>
-                `;
-            }
-        
-            document.getElementById('IU_form').innerHTML = formulario;
+            this.cargar_formulario_dinamico();
         }
-        
+
+        if (this.form_values) {
+            this.load_data(this.form_values);
+        }
+
+        document.getElementById('div_IU_form').style.display = 'block';
+        setLang();
     }
 
-    cargar_formulario_dinamico(formType, entityData) {
-        const formContainer = document.createElement('form');
-        formContainer.id = `${formType}_form`;
-        formContainer.className = 'dynamic-form';
+    cargar_formulario_dinamico() {
+        const estructura = this.estructura;
+        let formulario = '';
+        const accion = this.tipo_formulario || 'ADD';
 
-        // Iterar sobre la estructura de datos de la entidad para generar los campos
-        entityData.fields.forEach(field => {
-            const fieldContainer = document.createElement('div');
-            fieldContainer.className = 'form-field';
+        for (const atributo of estructura.attributes_list) {
+            const config = estructura.attributes[atributo];
+            const html = config.html || {};
 
-            const label = document.createElement('label');
-            label.htmlFor = field.name;
-            label.textContent = field.label;
+            if (config.validation_rules && !config.validation_rules[accion]) {
+                continue;
+            }
 
-            const input = document.createElement('input');
-            input.id = field.name;
-            input.name = field.name;
-            input.type = field.type || 'text'; // Tipo de campo (por defecto 'text')
+            let campo = '';
+            if (html.tag === 'textarea') {
+                campo = `<textarea id="${atributo}" name="${atributo}" rows="${html.rows || ''}" cols="${html.columns || ''}"></textarea>`;
+            } else if (html.tag === 'select') {
+                campo = `<select id="${atributo}" name="${atributo}"${html.multiple ? ' multiple' : ''}>`;
+                if (Array.isArray(html.options)) {
+                    for (const opt of html.options) {
+                        campo += `<option value="${opt}">${opt}</option>`;
+                    }
+                }
+                campo += '</select>';
+            } else {
+                campo = `<input id="${atributo}" name="${atributo}" type="${html.type || 'text'}"${html.multiple ? ' multiple' : ''}${html.component_visible_size ? ` size="${html.component_visible_size}"` : ''}>`;
+            }
 
-            fieldContainer.appendChild(label);
-            fieldContainer.appendChild(input);
-            formContainer.appendChild(fieldContainer);
-        });
+            formulario += `<label for="${atributo}">${atributo}</label>${campo}<div id="div_error_${atributo}"></div>`;
+        }
 
-        // Añadir botón de acción según el tipo de formulario
-        const submitButton = document.createElement('button');
-        submitButton.type = 'submit';
-        submitButton.textContent = formType;
-        formContainer.appendChild(submitButton);
+        document.getElementById('IU_form').innerHTML = formulario;
+    }
 
-        // Insertar el formulario en el DOM
-        document.body.appendChild(formContainer);
+    load_data(values) {
+        for (const campo in values) {
+            const elemento = document.getElementById(campo);
+            if (!elemento) continue;
+            if (elemento.type === 'checkbox') {
+                elemento.checked = values[campo];
+            } else {
+                elemento.value = values[campo];
+            }
+        }
+    }
+
+    createForm_ADD() {
+        this.tipo_formulario = 'ADD';
+        this.form_values = null;
+        this.createForm();
+    }
+
+    createForm_SEARCH() {
+        this.tipo_formulario = 'SEARCH';
+        this.form_values = null;
+        this.createForm();
+    }
+
+    createForm_EDIT(values) {
+        this.tipo_formulario = 'EDIT';
+        this.form_values = values;
+        this.createForm();
+    }
+
+    createForm_DELETE(values) {
+        this.tipo_formulario = 'DELETE';
+        this.form_values = values;
+        this.createForm();
+    }
+
+    createForm_SHOWCURRENT(values) {
+        this.tipo_formulario = 'SHOWCURRENT';
+        this.form_values = values;
+        this.createForm();
     }
 
 } 
