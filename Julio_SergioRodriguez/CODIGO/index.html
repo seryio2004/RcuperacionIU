@@ -3,7 +3,7 @@
 
 	<head>
 		
-               <link rel="stylesheet" type="text/css" href="./css/index.css" media="screen" />
+               <link rel="stylesheet" type="text/css" href="./css/IU.css" media="screen" />
 		
 		<!-- ficheros de idiomas -->
 		<script type="text/javascript" src="./locale/idioma.js"></script>
@@ -18,8 +18,9 @@
 		<!--<script type="text/javascript" src="./js_core/DOM_class.js"></script>
 		<script type="text/javascript" src="./js_base/EntidadAbstracta.js"></script>-->
 
-		<script type="text/javascript" src="../CODIGO/js_core/DOM_class.js"></script>
-		<script type="text/javascript" src="../CODIGO/js_base/Entidad_Abstract_class.js"></script>
+               <script type="text/javascript" src="./js_core/Dom_class.js"></script>
+               <script type="text/javascript" src="./js_core/Dom_validations_class.js"></script>
+               <script type="text/javascript" src="./js_base/Entidad_Abstract_class.js"></script>
 
 
 			<!-- aqui los ficheros implementados para la ET2 -->
@@ -28,7 +29,9 @@
                <script type="text/javascript" src="./js_app/characteristic_estructura.js"></script>
                <script type="text/javascript" src="./js_app/characteristic.js"></script>
 
-		<!-- aqui los ficheros de test de cada entidad -->
+                <!-- aqui los ficheros de test de cada entidad -->
+
+               <script type="text/javascript" src="./js_app/test_definitions.js"></script>
 		
 
 
@@ -45,8 +48,9 @@
 			<img src="./iconos/Spain.png" onclick="setLang('ES');" />
 			<img src="./iconos/United-Kingdom.png" onclick="setLang('EN');" />
 
-			<img id="botonTEST" src="./iconos/TEST.png" onclick="validar.test_run();"/>
-		</header>
+                        <img id="botonTEST" src="./iconos/TEST.png" onclick="validar.test_run();"/>
+                        <a href="API.html" id="link_api">API</a>
+                </header>
 
 		<nav class='bordeado'><span class="text_titulo_menu" onclick="menu_work();">Opciones de ménu</span></nav>
 

@@ -1,4 +1,4 @@
-class EntidadAbstracta extends DOM_class{
+class EntidadAbstracta extends DOM_validations{
 
 	constructor(){
 		super();
@@ -170,7 +170,13 @@ class EntidadAbstracta extends DOM_class{
     
     }
 
-	cambiacolumnastabla(atributo){
+    // Hook method to allow UI value changes in subclasses
+    change_value_IU(attribute, value) {
+        // To be overridden in specific entity classes
+        return value;
+    }
+
+    cambiacolumnastabla(atributo){
 
 		document.querySelector("th[class='"+atributo+"']").style.display = 'none';
 

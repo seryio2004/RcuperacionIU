@@ -1,1 +1,1 @@
-var info_entrega = ["Julio", "3558371g", "2"];
+var info_entrega = ["Entrega", "3558371G", "Sergio Rodriguez Martinez", "2"];
