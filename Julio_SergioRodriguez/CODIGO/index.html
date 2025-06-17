@@ -1,203 +1,207 @@
-	<!DOCTYPE html>
-	<html>
+<!DOCTYPE html>
+<html>
 
-	<head>
-		
-               <link rel="stylesheet" type="text/css" href="./css/IU.css" media="screen" />
-		
-		<!-- ficheros de idiomas -->
-		<script type="text/javascript" src="./locale/idioma.js"></script>
-		<script type="text/javascript" src="./js_app/Textos_ES.js"></script>
-		<script type="text/javascript" src="./js_app/Textos_EN.js"></script>
+<head>
 
-		<!--<script type="text/javascript" src="./js_core/ExternalAccess.js"></script>-->
-               <script type="text/javascript" src="./js_core/ExternalAccess_class.js"></script>
+	<link rel="stylesheet" type="text/css" href="./css/IU.css" media="screen" />
 
-               <script type="text/javascript" src="./js_app/Test_class.js"></script>
+	<!-- ficheros de idiomas -->
+	<script type="text/javascript" src="./locale/idioma.js"></script>
+	<script type="text/javascript" src="./js_app/Textos_ES.js"></script>
+	<script type="text/javascript" src="./js_app/Textos_EN.js"></script>
 
-		<!--<script type="text/javascript" src="./js_core/DOM_class.js"></script>
+	<!--<script type="text/javascript" src="./js_core/ExternalAccess.js"></script>-->
+	<script type="text/javascript" src="./js_core/ExternalAccess_class.js"></script>
+
+	<script type="text/javascript" src="./js_app/Test_class.js"></script>
+
+	<!--<script type="text/javascript" src="./js_core/DOM_class.js"></script>
 		<script type="text/javascript" src="./js_base/EntidadAbstracta.js"></script>-->
 
-               <script type="text/javascript" src="./js_core/Dom_class.js"></script>
+	<script type="text/javascript" src="./js_core/Dom_class.js"></script>
 
-               <!--<script type="text/javascript" src="./js_core/Dom_validations_class.js"></script>-->
+	<!--<script type="text/javascript" src="./js_core/Dom_validations_class.js"></script>-->
 
-               <script type="text/javascript" src="./js_base/Entidad_Abstract_class.js"></script>
-
-
-			<!-- aqui los ficheros implementados para la ET2 -->
-
-               <script type="text/javascript" src="./js_app/Validaciones_class.js"></script>
-               <script type="text/javascript" src="./js_app/characteristic_estructura.js"></script>
-               <script type="text/javascript" src="./js_app/characteristic.js"></script>
-               <script type="text/javascript" src="./js_app/analysis_preparation_estructura.js"></script>
-               <script type="text/javascript" src="./js_app/analysis_preparation.js"></script>
-               <script type="text/javascript" src="./js_app/project_estructura.js"></script>
-               <script type="text/javascript" src="./js_app/project.js"></script>
-
-               <script type="text/javascript" src="./js_app/test_definitions.js"></script>
-
-		<!-- aqui los ficheros de test de cada entidad -->
-		
+	<script type="text/javascript" src="./js_base/Entidad_Abstract_class.js"></script>
 
 
-		<!-- este es el script que carga las librerias ajax que usamos para acceder al back -->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+	<!-- aqui los ficheros implementados para la ET2 -->
 
-        <script type="text/javascript">var validar;</script>
-	</head>
+	<script type="text/javascript" src="./js_app/Validaciones_class.js"></script>
+	<script type="text/javascript" src="./js_app/characteristic_estructura.js"></script>
+	<script type="text/javascript" src="./js_app/characteristic.js"></script>
+	<script type="text/javascript" src="./js_app/analysis_preparation_estructura.js"></script>
+	<script type="text/javascript" src="./js_app/analysis_preparation.js"></script>
+	<script type="text/javascript" src="./js_app/project_estructura.js"></script>
+	<script type="text/javascript" src="./js_app/project.js"></script>
 
-	<body onload="">
+	<script type="text/javascript" src="./js_app/test_definitions.js"></script>
 
-		<header id='header_page' class='bordeado'><spam class="text_titulo_app">MIS DATOS PERSONALES</spam>
-			
-			<img src="./iconos/Spain.png" onclick="setLang('ES');" />
-			<img src="./iconos/United-Kingdom.png" onclick="setLang('EN');" />
-
-                        <img id="botonTEST" src="./iconos/TEST.png" onclick="validar.test_run();"/>
-                        <a href="API.html"><img src="./iconos/FILE.png" alt="API" /></a>
-                </header>
-
-		<nav class='bordeado'><span class="text_titulo_menu" onclick="menu_work();">Opciones de ménu</span></nav>
-
-		<aside id='div-menu'>
-			<ol>
-				<li class="opcionmenu"><span class="text_characteristic" onclick="validar = new characteristic(); validar.inicializar();">	characteristic</span></li>
-                                <li class="opcionmenu"><span class="text_analysis_preparation" onclick="validar = new analysis_preparation(); validar.inicializar();">analysis_preparation</span></li>
-                                <li class="opcionmenu"><span class="text_project" onclick="validar = new project(); validar.inicializar();">project</span></li
-                                <li class="opcionmenu"><span class="text_funcionalidad" onclick="validar = new funcionalidad();">Funcionalidad</span></li>
+	<!-- aqui los ficheros de test de cada entidad -->
 
 
 
-			</ol>
-		</aside>
+	<!-- este es el script que carga las librerias ajax que usamos para acceder al back -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
-		<section id = "workspace" class='bordeado'>
+	<script type="text/javascript">var validar;</script>
+</head>
 
-			<div id='title_page' class='bordeado'><spam id = "text_title_page" class="">titulo de pagina de entidad</spam>
-			</div>
+<body onload="">
 
-			<div id="id_tabla_datos">
-				
-				<div id="addysearch">
-					<img id="botonADD" src="./iconos/ADD.png" onclick="validar.createForm_ADD();" />
-					<img id="botonSEARCH" src="./iconos/SEARCH.png" onclick="validar.createForm_SEARCH();"/>
-					
-					<select id="seleccioncolumnas" size="2" multiple >
-					</select>
-					
-				</div>
-			
-				<table id="tabladatosalumnos">
-					<thead id="titulostablacabecera"></thead>
-					<tbody id="muestradatostabla"></tbody>
-				</table>
+	<header id='header_page' class='bordeado'>
+		<spam class="text_titulo_app">MIS DATOS PERSONALES</spam>
 
-				<br>
-				<img src="./iconos/BACK.png" onclick="validar.cerrar_tabla();" />
+		<img src="./iconos/Spain.png" onclick="setLang('ES');" />
+		<img src="./iconos/United-Kingdom.png" onclick="setLang('EN');" />
+
+		<img id="botonTEST" src="./iconos/TEST.png" onclick="validar.test_run();" />
+		<a href="API.html"><img src="./iconos/FILE.png" alt="API" /></a>
+	</header>
+
+	<nav class='bordeado'><span class="text_titulo_menu" onclick="menu_work();">Opciones de ménu</span></nav>
+
+	<aside id='div-menu'>
+		<ol>
+			<li class="opcionmenu"><span class="text_characteristic"
+					onclick="validar = new characteristic(); validar.inicializar();"> characteristic</span></li>
+			<li class="opcionmenu"><span class="text_analysis_preparation"
+					onclick="validar = new analysis_preparation(); validar.inicializar();">analysis_preparation</span>
+			</li>
+			<li class="opcionmenu"><span class="text_project"
+					onclick="validar = new project(); validar.inicializar();">project</span></li>
+		</ol>
+	</aside>
+
+	<section id="workspace" class='bordeado'>
+
+		<div id='title_page' class='bordeado'>
+			<spam id="text_title_page" class="">titulo de pagina de entidad</spam>
+		</div>
+
+		<div id="id_tabla_datos">
+
+			<div id="addysearch">
+				<img id="botonADD" src="./iconos/ADD.png" onclick="validar.createForm_ADD();" />
+				<img id="botonSEARCH" src="./iconos/SEARCH.png" onclick="validar.createForm_SEARCH();" />
+
+				<select id="seleccioncolumnas" size="2" multiple>
+				</select>
 
 			</div>
-			
-		</section>
 
-		<div class = "div_IU_form" id='div_IU_form'>
-				
-				<div class = "contenidoForm" id="contenidoForm">
-					<div class = "class_titulo_form">
-						<spam id="class_contenido_titulo_form" class = "" >titulo para el formulario de este tamano</spam>
-					</div>
+			<table id="tabladatosalumnos">
+				<thead id="titulostablacabecera"></thead>
+				<tbody id="muestradatostabla"></tbody>
+			</table>
 
-					<form id='IU_form' name='IU_form' method='POST' enctype="multipart/form-data" class="formulario">
-						
-					</form>
-					<br>
-					<img src="./iconos/BACK.png" onclick="validar.cerrar_formulario();" />
-				</div>
-		
-               </div>
+			<br>
+			<img src="./iconos/BACK.png" onclick="validar.cerrar_tabla();" />
+
+		</div>
+
+	</section>
+
+	<div class="div_IU_form" id='div_IU_form'>
+
+		<div class="contenidoForm" id="contenidoForm">
+			<div class="class_titulo_form">
+				<spam id="class_contenido_titulo_form" class="">titulo para el formulario de este tamano</spam>
+			</div>
+
+			<form id='IU_form' name='IU_form' method='POST' enctype="multipart/form-data" class="formulario">
+
+			</form>
+			<br>
+			<img src="./iconos/BACK.png" onclick="validar.cerrar_formulario();" />
+		</div>
+
+	</div>
 
 
 
-		<div class = "contenidoForm" id='div_IU_test'>
+	<div class="contenidoForm" id='div_IU_test'>
 
-			<div class = "" id="contenidoTests">
-				<h1  id="res_estructura_tests"></h1>
-				<p  id="resultadodef"></p>
-				<table border="1">
-					<tbody id="tablaresultadostest">
+		<div class="" id="contenidoTests">
+			<h1 id="res_estructura_tests"></h1>
+			<p id="resultadodef"></p>
+			<table border="1">
+				<tbody id="tablaresultadostest">
+				</tbody>
+			</table>
+		</div>
+
+		<div class="" id="contenidoPruebas">
+			<h1 id="res_estructura_pruebas"></h1>
+			<p id="resultadoprueba"></p>
+			<div id="div_tabla_prueba">
+				<table id="tabla_prueba" border="1">
+					<tbody id="tablaresultadosprueba">
 					</tbody>
 				</table>
 			</div>
-
-			<div class = "" id="contenidoPruebas">
-				<h1  id="res_estructura_pruebas"></h1>
-				<p  id="resultadoprueba"></p>
-				<div id="div_tabla_prueba">
-					<table id="tabla_prueba" border="1">
-						<tbody id="tablaresultadosprueba">
-						</tbody>
-					</table>
-				</div>
-			</div>
-
-			<div class = "" id="resultadopruebas">
-				<h1  id="res_pruebas"></h1>
-				<p  id="resultadotest"></p>
-				<div id="div_resultado_prueba">
-					<table id="resultado_prueba" border="1">
-						<tbody id="salidaresultadosprueba">
-						</tbody>
-					</table>
-				
-				</div>
-			</div>
-			
-			<img src="./iconos/BACK.png" onclick="validar.cerrar_test();" />
-
 		</div>
 
-		<footer class='bordeado'><spam class="text_titulo_pie">Pie de página</spam></footer>
+		<div class="" id="resultadopruebas">
+			<h1 id="res_pruebas"></h1>
+			<p id="resultadotest"></p>
+			<div id="div_resultado_prueba">
+				<table id="resultado_prueba" border="1">
+					<tbody id="salidaresultadosprueba">
+					</tbody>
+				</table>
 
-		<!-- Overlay para acompañar el modal -->
-		<div id="modal_action_overlay"></div>
-
-		<!-- Modal para mostrar los errores de accion -->
-		<div id="error_action_modal">
-			<span id="error_action_msg"></span>
-			<!--<img src="./iconos/BACK.png" onclick="cerrarModalError();" />-->
-			<button onclick="validar.cerrarModalError()">X</button>
+			</div>
 		</div>
-		
-		<script type="text/javascript">
 
-			document.getElementById('div-menu').style.display = 'none';
-			document.getElementById('div_IU_form').style.display = 'none';
-			document.getElementById('id_tabla_datos').style.display = 'none';
-			document.getElementById('title_page').style.display = 'none';
-			document.getElementById('botonTEST').style.display = 'none';
-			document.getElementById('div_IU_test').style.display = 'none';
-			// poner no visible el modal de error de accion
-			document.getElementById('error_action_modal').style.display = 'none';
-			/*
-			this.cerrar_test();
-			this.cerrar_pruebas();
-			*/
-			function menu_work(){
-				if (document.getElementById('div-menu').style.display == 'none'){
-					document.getElementById('div-menu').style.display = 'block';
-				}
-				else{
-					document.getElementById('div-menu').style.display = 'none';
-				}
+		<img src="./iconos/BACK.png" onclick="validar.cerrar_test();" />
+
+	</div>
+
+	<footer class='bordeado'>
+		<spam class="text_titulo_pie">Pie de página</spam>
+	</footer>
+
+	<!-- Overlay para acompañar el modal -->
+	<div id="modal_action_overlay"></div>
+
+	<!-- Modal para mostrar los errores de accion -->
+	<div id="error_action_modal">
+		<span id="error_action_msg"></span>
+		<!--<img src="./iconos/BACK.png" onclick="cerrarModalError();" />-->
+		<button onclick="validar.cerrarModalError()">X</button>
+	</div>
+
+	<script type="text/javascript">
+
+		document.getElementById('div-menu').style.display = 'none';
+		document.getElementById('div_IU_form').style.display = 'none';
+		document.getElementById('id_tabla_datos').style.display = 'none';
+		document.getElementById('title_page').style.display = 'none';
+		document.getElementById('botonTEST').style.display = 'none';
+		document.getElementById('div_IU_test').style.display = 'none';
+		// poner no visible el modal de error de accion
+		document.getElementById('error_action_modal').style.display = 'none';
+		/*
+		this.cerrar_test();
+		this.cerrar_pruebas();
+		*/
+		function menu_work() {
+			if (document.getElementById('div-menu').style.display == 'none') {
+				document.getElementById('div-menu').style.display = 'block';
 			}
+			else {
+				document.getElementById('div-menu').style.display = 'none';
+			}
+		}
 
-			setLang('');
+		setLang('');
 
-		</script>
-
-		
-
-	</body>
+	</script>
 
 
-	</html>
+
+</body>
+
+
+</html>

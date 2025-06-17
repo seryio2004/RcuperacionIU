@@ -140,7 +140,7 @@ class DOM_class extends test {
 
     }
 
-    /*
+    
     
     mostrarTitulos(columnasamostrar){
     
@@ -163,7 +163,7 @@ class DOM_class extends test {
             
     } 
                 
-    */
+    
 
     crearboton(entidad, accion, parametros) {
         let columna = document.createElement('td');
@@ -176,7 +176,7 @@ class DOM_class extends test {
 
     }
 
-    /*
+  /*  
     
     mostrarDatos(entidad, datosfilas, columnasamostrar){
     
@@ -278,12 +278,6 @@ class DOM_class extends test {
         //document.getElementById('error_action_msg').removeAttribute('class');
     }
 
-    // Default empty form loader so child classes may override it
-    cargar_formulario_html() {
-        // If an entity implements its own HTML form it should override this
-        return false;
-    }
-
 
     createForm() {
         document.getElementById('IU_form').innerHTML = '';
@@ -302,7 +296,7 @@ class DOM_class extends test {
         setLang();
     }
 
-    cargar_formulario_dinamico() {
+    cargar_formulario_html() {
         const estructura = this.estructura;
         let formulario = '';
         const accion = this.tipo_formulario || 'ADD';
@@ -346,7 +340,7 @@ class DOM_class extends test {
                 elemento.value = values[campo];
             }
         }
-    }
+    }   
 
     createForm_ADD() {
         this.tipo_formulario = 'ADD';

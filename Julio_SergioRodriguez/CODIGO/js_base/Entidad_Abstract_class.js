@@ -1,28 +1,28 @@
-class EntidadAbstracta extends DOM_class{
+class EntidadAbstracta extends DOM_class {
 
-	constructor(){
+	constructor() {
 		super();
 	}
 
-	inicializar(){
+	inicializar() {
 
-		if (eval(this.datosespecialestabla)){}
-		else{
+		if (eval(this.datosespecialestabla)) { }
+		else {
 			this.datosespecialestabla = Array();
 		}
 
 		this.access_functions = new ExternalAccess();
 		this.validaciones = new validacionesatomicas();
 
-		
+
 		this.SEARCH();
 
 
 	}
 
-	
 
-	crearTablaDatos(){
+
+	crearTablaDatos() {
 
 		document.getElementById("id_tabla_datos").style.display = 'block';
 
@@ -30,153 +30,174 @@ class EntidadAbstracta extends DOM_class{
 		this.hacertabla();
 		//construir select
 		this.construirSelect();
-		
+
 		//ocultar segun columnasamostrar
 		this.mostrarocultarcolumnas();
 
 	}
 
-        cargar_formulario(){
+	cargar_formulario() {
 
-                // reutilizamos la utilidad general de DOM_class que
-                // carga el formulario desde html o de forma dinámica
-                if (typeof this.createForm === 'function') {
-                        this.createForm();
-                } else {
-                        // en caso de que createForm no exista mostramos error
-                        this.abrirModalError('no existe formulario');
-                }
+		if (eval(this.cargar_formulario_html)) {
+			this.cargar_formulario_html();
+		}
+		else {
+			if (eval(this.cargar_formulario_dinamico)) {
+				this.cargar_formulario_dinamico();
+			}
+			else {
 
-        }
-
-
-	async SEARCH(){
-    
-        await this.access_functions.peticionBackGeneral('IU_form', this.entidad, 'SEARCH')
-        .then((respuesta) => {
-
-            // reconstruir el formulario de búsqueda para dejarlo limpio
-                if (typeof this.createForm_SEARCH === 'function') {
-                        this.createForm_SEARCH();
-                } else {
-                        this.cargar_formulario();
-                }
-			//quito los class de la muestra de filas
-			document.getElementById('muestradatostabla').removeAttribute('class');
-
-            //poner el div del formulario no visible
-            document.getElementById("div_IU_form").style.display = 'none';
-
-            this.datos = respuesta['resource'];
-
-            if (respuesta['code'] == 'RECORDSET_DATOS'){
-            	this.crearTablaDatos();
-            }
-            else{
-				document.getElementById("id_tabla_datos").style.display = 'block';
-				document.getElementById('muestradatostabla').innerHTML = '';
-                document.getElementById('muestradatostabla').className = 'RECORDSET_VACIO';
-            }
-
-			setLang();
-
-        });
-    
-    }
-
-    async ADD(){
-    
-        await this.access_functions.peticionBackGeneral('IU_form', this.entidad, 'ADD')
-        .then((respuesta) => {
-
-        	if (respuesta['ok']){
-            
-	            //limpiar el formulario
-	            this.cargar_formulario();
-
-	            //poner el div del formulario no visible
-	            document.getElementById("div_IU_form").style.display = 'none';
-
-	            this.SEARCH();
-
-	        }
-	        else{
-
-	        	// mostrar mensaje error accion
-	        	// alert('error : '+respuesta['code']);
-
+				// alert('no existe formulario');
 				// Usando modal
-				this.abrirModalError(respuesta['code']);
-	        }
+				this.abrirModalError('no existe formulario');
+			}
+		}
 
-        });
-    
-    }
+	}
 
-    async DELETE(){
-    
-        await this.access_functions.peticionBackGeneral('IU_form', this.entidad, 'DELETE')
-        .then((respuesta) => {
 
-        	if (respuesta['ok']){
-            
-	            //limpiar el formulario
-	            this.cargar_formulario();
+	async SEARCH() {
 
-	            //poner el div del formulario no visible
-	            document.getElementById("div_IU_form").style.display = 'none';
+		await this.access_functions.peticionBackGeneral('IU_form', this.entidad, 'SEARCH')
+			.then((respuesta) => {
 
-	            this.SEARCH();
-	        }
-	        else{
+				//limpiar el formulario
+				this.cargar_formulario_html();
+				//quito los class de la muestra de filas
+				document.getElementById('muestradatostabla').removeAttribute('class');
 
-	        	// mostrar mensaje error accion
-	        	// alert('error : '+respuesta['code']);
-				// Usando modal
-				this.abrirModalError(respuesta['code']);
-	        }
+				//poner el div del formulario no visible
+				document.getElementById("div_IU_form").style.display = 'none';
 
-        });
-    
-    }
+				this.datos = respuesta['resource'];
 
-    async EDIT(){
-    
-        await this.access_functions.peticionBackGeneral('IU_form', this.entidad, 'EDIT')
-        .then((respuesta) => {
+				if (respuesta['code'] == 'RECORDSET_DATOS') {
+					this.crearTablaDatos();
+				}
+				else {
+					document.getElementById("id_tabla_datos").style.display = 'block';
+					document.getElementById('muestradatostabla').innerHTML = '';
+					document.getElementById('muestradatostabla').className = 'RECORDSET_VACIO';
+				}
 
-        	if (respuesta['ok']){
-            
-	            //limpiar el formulario
-	            this.cargar_formulario();
+				setLang();
 
-	            //poner el div del formulario no visible
-	            document.getElementById("div_IU_form").style.display = 'none';
+			});
 
-	            this.SEARCH();
+	}
 
-	        }
-	        else{
+	async ADD() {
 
-	        	// mostrar mensaje error accion
-	        	// alert('error : '+respuesta['code']);
-				// Usando modal
-				this.abrirModalError(respuesta['code']);
-	        }
+		await this.access_functions.peticionBackGeneral('IU_form', this.entidad, 'ADD')
+			.then((respuesta) => {
 
-        });
-    
-    }
+				if (respuesta['ok']) {
 
-    cambiacolumnastabla(atributo){
+					//limpiar el formulario
+					this.cargar_formulario();
 
-                document.querySelector("th[class='"+atributo+"']").style.display = 'none';
+					//poner el div del formulario no visible
+					document.getElementById("div_IU_form").style.display = 'none';
 
-        }
+					this.SEARCH();
 
-    // Hook to allow entity classes to modify value representation
-    change_value_IU(clave, valor){
-        return valor;
-    }
+				}
+				else {
+
+					// mostrar mensaje error accion
+					// alert('error : '+respuesta['code']);
+
+					// Usando modal
+					this.abrirModalError(respuesta['code']);
+				}
+
+			});
+
+	}
+
+	async DELETE() {
+
+		await this.access_functions.peticionBackGeneral('IU_form', this.entidad, 'DELETE')
+			.then((respuesta) => {
+
+				if (respuesta['ok']) {
+
+					//limpiar el formulario
+					this.cargar_formulario();
+
+					//poner el div del formulario no visible
+					document.getElementById("div_IU_form").style.display = 'none';
+
+					this.SEARCH();
+				}
+				else {
+
+					// mostrar mensaje error accion
+					// alert('error : '+respuesta['code']);
+					// Usando modal
+					this.abrirModalError(respuesta['code']);
+				}
+
+			});
+
+	}
+
+	async EDIT() {
+
+		await this.access_functions.peticionBackGeneral('IU_form', this.entidad, 'EDIT')
+			.then((respuesta) => {
+
+				if (respuesta['ok']) {
+
+					//limpiar el formulario
+					this.cargar_formulario();
+
+					//poner el div del formulario no visible
+					document.getElementById("div_IU_form").style.display = 'none';
+
+					this.SEARCH();
+
+				}
+				else {
+
+					// mostrar mensaje error accion
+					// alert('error : '+respuesta['code']);
+					// Usando modal
+					this.abrirModalError(respuesta['code']);
+				}
+
+			});
+
+	}
+
+
+	cambiacolumnastabla(atributo) {
+
+		document.querySelector("th[class='" + atributo + "']").style.display = 'none';
+
+	}
+
+	cambiardatosespecialestabla(atributo, valoratributo) {
+
+		if (atributo == 'file_characteristic') {
+
+			if (valoratributo == '') {
+				return "no hay fichero";
+			}
+			let texto = valoratributo;
+			texto += `<a id="link_file_characteristic" href="http://193.147.87.202/ET2/filesuploaded/files_file_characteristic/`;
+			texto += valoratributo;
+			texto += `"><img src="./iconos/FILE.png" /></a>`;
+
+			return texto;
+
+		}
+
+	}
+
+	// Hook to allow entity classes to modify value representation
+	change_value_IU(clave, valor) {
+		return valor;
+	}
 
 }
