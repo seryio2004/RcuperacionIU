@@ -1,6 +1,29 @@
-const estructura_project = { 
-    attributes_list: ['id_project','name_project', 'star_date_project', 'end_date_project', 'responsable_project', 'organization_project', 'description_project','file_project', 'code_project', 'acronym_project', 'id_sampling_metodology'],
-    columnas_visibles_tabla: ['id_project','name_project', 'star_date_project', 'end_date_project', 'responsable_project', 'organization_project', 'description_project', 'code_project', 'acronym_project', 'id_sampling_metodology'],
+const estructura_project = {
+    attributes_list: [
+        'id_project',
+        'name_project',
+        'start_date_project',
+        'end_date_project',
+        'responsable_project',
+        'organization_project',
+        'description_project',
+        'file_project',
+        'code_project',
+        'acronym_project',
+        'id_sampling_methodology'
+    ],
+    columnas_visibles_tabla: [
+        'id_project',
+        'name_project',
+        'start_date_project',
+        'end_date_project',
+        'responsable_project',
+        'organization_project',
+        'description_project',
+        'code_project',
+        'acronym_project',
+        'id_sampling_methodology'
+    ],
     columnas_modificadas_tabla: ['file_project'],
     attributes: {
         id_project :{
@@ -47,27 +70,272 @@ const estructura_project = {
                 },
             }
         },
-        star_date_project :{
-            html:{
-                tag:'input',
-                type:'date',
+        start_date_project: {
+            html: {
+                tag: 'input',
+                type: 'text',
             },
             is_not_null: true,
             component_visible_size: 10,
-            validation_rules:{
+            validation_rules: {
                 ADD: {
-                  
-                    format: ['^[A-Za-z ]+$', "name_project_format_KO"]
-                    //falta cambiar la expresion regular para los date 
+                    format: [
+                        '^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/\\d{4}$',
+                        'start_date_project_format_KO'
+                    ]
                 },
                 EDIT: {
-                   
-                    format: ['^[A-Za-z ]+$', "name_project_format_KO"]
+                    format: [
+                        '^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/\\d{4}$',
+                        'start_date_project_format_KO'
+                    ]
                 },
                 SEARCH: {
-                    format: ['^[A-Za-z ]+$', "name_project_format_KO"]
-                },
+                    format: [
+                        '^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/\\d{4}$',
+                        'start_date_project_format_KO'
+                    ]
+                }
+            }
+        },
+        end_date_project: {
+            html: {
+                tag: 'input',
+                type: 'text',
             },
+            is_not_null: true,
+            component_visible_size: 10,
+            validation_rules: {
+                ADD: {
+                    format: [
+                        '^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/\\d{4}$',
+                        'end_date_project_format_KO'
+                    ]
+                },
+                EDIT: {
+                    format: [
+                        '^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/\\d{4}$',
+                        'end_date_project_format_KO'
+                    ]
+                },
+                SEARCH: {
+                    format: [
+                        '^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/\\d{4}$',
+                        'end_date_project_format_KO'
+                    ]
+                }
+            }
+        },
+        responsable_project: {
+            html: {
+                tag: 'input',
+                type: 'text',
+            },
+            is_not_null: true,
+            component_visible_size: 60,
+            validation_rules: {
+                ADD: {
+                    min_size: [6, 'responsable_project_min_size_KO'],
+                    max_size: [60, 'responsable_project_max_size_KO'],
+                    format: [
+                        '^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$',
+                        'responsable_project_format_KO'
+                    ]
+                },
+                EDIT: {
+                    min_size: [6, 'responsable_project_min_size_KO'],
+                    max_size: [60, 'responsable_project_max_size_KO'],
+                    format: [
+                        '^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$',
+                        'responsable_project_format_KO'
+                    ]
+                },
+                SEARCH: {
+                    max_size: [60, 'responsable_project_max_size_KO'],
+                    format: [
+                        '^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$',
+                        'responsable_project_format_KO'
+                    ]
+                }
+            }
+        },
+        organization_project: {
+            html: {
+                tag: 'input',
+                type: 'text',
+            },
+            is_not_null: true,
+            component_visible_size: 100,
+            validation_rules: {
+                ADD: {
+                    min_size: [6, 'organization_project_min_size_KO'],
+                    max_size: [100, 'organization_project_max_size_KO'],
+                    format: [
+                        '^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$',
+                        'organization_project_format_KO'
+                    ]
+                },
+                EDIT: {
+                    min_size: [6, 'organization_project_min_size_KO'],
+                    max_size: [100, 'organization_project_max_size_KO'],
+                    format: [
+                        '^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$',
+                        'organization_project_format_KO'
+                    ]
+                },
+                SEARCH: {
+                    max_size: [100, 'organization_project_max_size_KO'],
+                    format: [
+                        '^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$',
+                        'organization_project_format_KO'
+                    ]
+                }
+            }
+        },
+        description_project: {
+            html: {
+                tag: 'textarea',
+                rows: 5,
+                columns: 50,
+            },
+            is_not_null: true,
+            component_visible_size: 500,
+            validation_rules: {
+                ADD: {
+                    min_size: [30, 'description_project_min_size_KO'],
+                    max_size: [500, 'description_project_max_size_KO'],
+                    format: ['^.{1,}$', 'description_project_format_KO']
+                },
+                EDIT: {
+                    min_size: [30, 'description_project_min_size_KO'],
+                    max_size: [500, 'description_project_max_size_KO'],
+                    format: ['^.{1,}$', 'description_project_format_KO']
+                },
+                SEARCH: {
+                    max_size: [500, 'description_project_max_size_KO'],
+                    format: ['^.{0,}$', 'description_project_format_KO']
+                }
+            }
+        },
+        file_project: {
+            html: {
+                tag: 'input',
+                type: 'file',
+                multiple: true,
+            },
+            is_not_null: true,
+            component_visible_size: 100,
+            validation_rules: {
+                ADD: {
+                    no_file: 'file_project_no_file_KO',
+                    file_type: [
+                        'application/pdf',
+                        'file_project_file_type_KO'
+                    ],
+                    max_size_file: [2000000, 'file_project_max_size_file_KO'],
+                    format_name_file: [
+                        '^(?=.{7,100}$)([A-Za-z]+(?:\\.[A-Za-z]+)*?)\\.(pdf|docx?)$',
+                        'file_project_format_name_file_KO'
+                    ]
+                },
+                EDIT: {
+                    no_file: 'file_project_no_file_KO',
+                    file_type: [
+                        'application/pdf',
+                        'file_project_file_type_KO'
+                    ],
+                    max_size_file: [2000000, 'file_project_max_size_file_KO'],
+                    format_name_file: [
+                        '^(?=.{7,100}$)([A-Za-z]+(?:\\.[A-Za-z]+)*?)\\.(pdf|docx?)$',
+                        'file_project_format_name_file_KO'
+                    ]
+                }
+            }
+        },
+        code_project: {
+            html: {
+                tag: 'input',
+                type: 'text',
+            },
+            is_not_null: true,
+            component_visible_size: 50,
+            validation_rules: {
+                ADD: {
+                    min_size: [6, 'code_project_min_size_KO'],
+                    max_size: [50, 'code_project_max_size_KO'],
+                    format: [
+                        '^[A-Za-zÑñ .,;:!?¿¡()\-]+$',
+                        'code_project_format_KO'
+                    ]
+                },
+                EDIT: {
+                    min_size: [6, 'code_project_min_size_KO'],
+                    max_size: [50, 'code_project_max_size_KO'],
+                    format: [
+                        '^[A-Za-zÑñ .,;:!?¿¡()\-]+$',
+                        'code_project_format_KO'
+                    ]
+                },
+                SEARCH: {
+                    max_size: [50, 'code_project_max_size_KO'],
+                    format: [
+                        '^[A-Za-zÑñ .,;:!?¿¡()\-]+$',
+                        'code_project_format_KO'
+                    ]
+                }
+            }
+        },
+        acronym_project: {
+            html: {
+                tag: 'input',
+                type: 'text',
+            },
+            is_not_null: true,
+            component_visible_size: 15,
+            validation_rules: {
+                ADD: {
+                    min_size: [6, 'acronym_project_min_size_KO'],
+                    max_size: [15, 'acronym_project_max_size_KO'],
+                    format: [
+                        '^[A-Za-zÑñ.,;:!?¿¡()\-]+$',
+                        'acronym_project_format_KO'
+                    ]
+                },
+                EDIT: {
+                    min_size: [6, 'acronym_project_min_size_KO'],
+                    max_size: [15, 'acronym_project_max_size_KO'],
+                    format: [
+                        '^[A-Za-zÑñ.,;:!?¿¡()\-]+$',
+                        'acronym_project_format_KO'
+                    ]
+                },
+                SEARCH: {
+                    max_size: [15, 'acronym_project_max_size_KO'],
+                    format: [
+                        '^[A-Za-zÑñ.,;:!?¿¡()\-]+$',
+                        'acronym_project_format_KO'
+                    ]
+                }
+            }
+        },
+        id_sampling_methodology: {
+            html: {
+                tag: 'input',
+                type: 'number',
+            },
+            is_not_null: true,
+            component_visible_size: 11,
+            validation_rules: {
+                ADD: {
+                    min_size: [1, 'id_sampling_methodology_min_size_KO'],
+                    max_size: [11, 'id_sampling_methodology_max_size_KO'],
+                    format: ['^\\d{1,11}$', 'id_sampling_methodology_format_KO']
+                },
+                SEARCH: {
+                    max_size: [11, 'id_sampling_methodology_max_size_KO'],
+                    format: ['^\\d{1,11}$', 'id_sampling_methodology_format_KO']
+                }
+            }
         }
     }
 }
