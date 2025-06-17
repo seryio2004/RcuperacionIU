@@ -1,4 +1,4 @@
-class EntidadAbstracta extends DOM_class {
+class EntidadAbstracta extends Dom_validations {
 
 	constructor() {
 		super();
