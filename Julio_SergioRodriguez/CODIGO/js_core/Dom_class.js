@@ -439,15 +439,15 @@ class DOM_class extends test {
               break;
     
             case "textarea":
-              const cols = this.structure?.attributes?.[attribute]?.html?.cols || 50;
-              const rows = this.structure?.attributes?.[attribute]?.html?.rows || 10;
+              const cols = this.estructura?.attributes?.[attribute]?.html?.cols || 50;
+              const rows = this.estructura?.attributes?.[attribute]?.html?.rows || 10;
               contenido += `<label for="${attribute}">${attribute}</label>` +
                              `<textarea id="${attribute}" name="${attribute}" rows="${rows}" cols="${cols}"></textarea>` +
                              `<span id="div_error_${attribute}"></span>`;
               break;
     
             case "select":
-              const options = this.structure?.attributes?.[attribute]?.html?.options || [];
+              const options = this.estructura?.attributes?.[attribute]?.html?.options || [];
               contenido += `<label for="${attribute}">${attribute}</label>` +
                              `<select name="${attribute}" id="${attribute}">`;
               for (const option of options) {
