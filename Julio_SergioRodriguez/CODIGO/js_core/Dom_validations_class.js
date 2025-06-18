@@ -44,7 +44,7 @@ class Dom_validations {
         }
     }
 
-	comprobarCampo(campo, accion, estructura = this.estructura, atomicValidations = this.validaciones) {
+	comprobarCampo(campo, accion, estructura , atomicValidations ) {
         const atributo = campo.startsWith('nuevo_') ? campo.substring('nuevo_'.length) : campo;
         const reglas = estructura?.attributes?.[atributo]?.validation_rules?.[accion];
 

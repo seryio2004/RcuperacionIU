@@ -348,8 +348,8 @@ class DOM_class extends test {
 
         switch (action) {
             case 'ADD':
-                document.getElementById('IU_form').innerHTML += `<button type="button" id="submit_button" onclick="validar.submit_test('ADD','this')">niger</button>`;
-                break;
+                document.getElementById('IU_form').innerHTML += `<button type="button" id="submit_button" onclick="validar = new Dom_validations(); validar.submit_test('ADD')">niger</button>`;
+                break;                                                                                    
             case 'EDIT':
                 document.getElementById('IU_form').innerHTML += `<button type="button" id="submit_button" onclick="validar.Dom_validations.submit_test('EDIT','this')">niger</button>`;
                 break;
