@@ -1,6 +1,6 @@
 class Dom_validations {
     constructor() {
-    
+        this.domAux=new DOM_class();
     }
     load_validations(formId = 'IU_form', action = this.accion, structure = this.estructura, atomicValidations = this.validaciones) {
         const formulario = document.getElementById(formId);
@@ -49,7 +49,7 @@ class Dom_validations {
         const reglas = estructura?.attributes?.[atributo]?.validation_rules?.[accion];
 
         if (!reglas) {
-                this.mostrar_exito_campo(campo);
+                this.domAux.mostrar_exito_campo(campo);
                 return true;
         }
 
@@ -57,26 +57,26 @@ class Dom_validations {
                 switch (regla) {
                         case 'min_size':
                                 if (!atomicValidations.min_size(campo, valor[0])) {
-                                        this.mostrar_error_campo(campo, valor[1]);
+                                        this.domAux.mostrar_error_campo(campo, valor[1]);
                                         return valor[1];
                                 }
                                 break;
                         case 'max_size':
                                 if (!atomicValidations.max_size(campo, valor[0])) {
-                                        atomicValidations.mostrar_error_campo(campo, valor[1]);
+                                        this.domAux.mostrar_error_campo(campo, valor[1]);
                                         return valor[1];
                                 }
                                 break;
                         case 'format':
                                 if (!atomicValidations.format(campo, valor[0])) {
-                                        domValidations.mostrar_error_campo(campo, valor[1]);
+                                        this.domAux.mostrar_error_campo(campo, valor[1]);
                                         return valor[1];
                                 }
                                 break;
                         case 'format_name_file': {
                                 const file = document.getElementById(campo).files[0];
                                 if (!file || !atomicValidations.format_name_file(file, valor[0])) {
-                                        this.mostrar_error_campo(campo, valor[1]);
+                                        this.domAux.mostrar_error_campo(campo, valor[1]);
                                         return valor[1];
                                 }
                                 break;
@@ -84,7 +84,7 @@ class Dom_validations {
                         case 'file_type': {
                                 const file = document.getElementById(campo).files[0];
                                 if (!file || !atomicValidations.type_file(file, valor[0])) {
-                                        this.mostrar_error_campo(campo, valor[1]);
+                                        this.domAux.mostrar_error_campo(campo, valor[1]);
                                         return valor[1];
                                 }
                                 break;
@@ -92,21 +92,21 @@ class Dom_validations {
                         case 'max_size_file': {
                                 const file = document.getElementById(campo).files[0];
                                 if (!file || !atomicValidations.max_size_file(file, valor[0])) {
-                                        this.mostrar_error_campo(campo, valor[1]);
+                                        this.domAux.mostrar_error_campo(campo, valor[1]);
                                         return valor[1];
                                 }
                                 break;
                         }
                         case 'no_file':
                                 if (document.getElementById(campo).files.length === 0) {
-                                        this.mostrar_error_campo(campo, valor);
+                                        this.domAux.mostrar_error_campo(campo, valor);
                                         return valor;
                                 }
                                 break;
                 }
         }
 
-        this.mostrar_exito_campo(campo);
+        this.domAux.mostrar_exito_campo(campo);
         return true;
 }
 }
