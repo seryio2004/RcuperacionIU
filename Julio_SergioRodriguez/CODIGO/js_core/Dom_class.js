@@ -348,8 +348,12 @@ class DOM_class extends test {
 
         switch (action) {
             case 'ADD':
-                document.getElementById('IU_form').innerHTML += `<button type="button" id="submit_button" onclick="validar.domValidations.submit_test('ADD','this')">niger</button>`;
+                document.getElementById('IU_form').innerHTML += `<button type="button" id="submit_button" onclick="validar.Dom_validations.submit_test('ADD','this')">niger</button>`;
                 break;
+            case 'EDIT':
+                document.getElementById('IU_form').innerHTML += `<button type="button" id="submit_button" onclick="validar.Dom_validations.submit_test('EDIT','this')">niger</button>`;
+                break;
+            
                 /*
             case 'SEARCH':
                 document.getElementById('IU_form').innerHTML += `<button type="submit" id="submit_button" class="btn btn-primary">${this.textos['text_contenido_boton_submit_SEARCH']}</button>`;
