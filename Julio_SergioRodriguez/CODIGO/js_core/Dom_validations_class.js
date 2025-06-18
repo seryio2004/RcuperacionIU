@@ -2,7 +2,7 @@ class Dom_validations {
     constructor() {
         this.domAux=new DOM_class();
     }
-    load_validations(formId = 'IU_form', action = this.accion, structure = this.estructura, atomicValidations = this.validaciones) {
+    load_validations(formId, action ,structure,atomicValidations) {
         const formulario = document.getElementById(formId);
         if (!formulario) return false;
 
