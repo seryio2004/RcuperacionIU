@@ -353,7 +353,7 @@ class DOM_class extends test {
                     action,
                     this.estructura,
                     validador.atomicValidations,
-                    console.log(aaaaaaaaaa),
+                    console.log('aaaaaaaaaa'),
                 );
             });
         }
