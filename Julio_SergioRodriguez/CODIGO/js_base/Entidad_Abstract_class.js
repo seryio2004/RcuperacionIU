@@ -1,4 +1,4 @@
-class EntidadAbstracta extends Dom_validations {
+class EntidadAbstracta extends DOM_class {
 
 	constructor() {
 		super();
@@ -13,7 +13,7 @@ class EntidadAbstracta extends Dom_validations {
 
 		this.access_functions = new ExternalAccess();
 		this.validaciones = new validacionesatomicas();
-
+		this.domValidations = new Dom_validations()
 
 		this.SEARCH();
 
