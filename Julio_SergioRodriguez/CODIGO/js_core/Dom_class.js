@@ -301,7 +301,7 @@ class DOM_class extends test {
                 formulario += `\n        <input type="text" id="${campo.nombre}" name="${campo.nombre}">`;
                 formulario += `\n        <span id="div_error_${campo.nombre}"><a id="error_${campo.nombre}"></a></span>`;
                 formulario += `\n        <a id="link_${campo.nombre}" href="http://193.147.87.202/ET2/filesuploaded/files_${campo.nombre}/">`;
-                formulario += `\n          <img src="/CODIGO/iconos/FILE.png">`;
+                formulario += `\n          <img src="./iconos/FILE.png">`;
                 formulario += `\n        </a>`;
                 formulario += `\n        <label id="label_nuevo_${campo.nombre}" class="label_nuevo_${campo.nombre}"></label>`;
                 formulario += `\n        <input type="file" id="nuevo_${campo.nombre}" name="nuevo_${campo.nombre}">`;
