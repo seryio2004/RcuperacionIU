@@ -275,117 +275,135 @@ class DOM_class extends test {
 
 
     createForm(action) {
-        const validador = new Dom_validations();
+        this.tipo_formulario = action;
         document.getElementById('IU_form').innerHTML = '';
+
         if (typeof this.cargar_formulario_html === 'function') {
             this.cargar_formulario_html();
-
-        } else {
-            this.cargar_formulario_dinamico();
-            const inputs = document.querySelectorAll('#IU_form input, #IU_form textarea');
-
-            const validador = new Dom_validations();
-            for (const input of inputs) {
-                input.addEventListener('blur', () => {
-                    validador.comprobarCampo(
-                        input.id,
-                        action,
-                        this.estructura,
-                        this.validaciones
-                    );
-                });
-            }
-
+            return;
         }
-        const formEl = document.getElementById('IU_form');
-        if (!formEl) return;
-        console.log(formEl.querySelectorAll('input, textarea'));
-        for (let input of formEl.querySelectorAll('input, textarea, select')) {
 
-            if (!input) continue;
-            const atributo = input.id;
-            //autoincrementales
-            if (action === 'ADD' || action === 'EDIT') {
-                const autoIn = this.estructura?.attributes?.[atributo]?.is_autoincrement || false;
-                if (autoIn) {
-                    if (input) input.style.display = "none";
-                    const labelEl = document.querySelector(`label[for="${atributo}"]`);
-                    if (labelEl) labelEl.style.display = "none";
-                    const errorEl = document.getElementById(`div_error_${atributo}`);
-                    if (errorEl) errorEl.classList.add('hidden');
-                }
+        let formulario = '';
+        this.obtenerEstructura1().forEach(campo => {
+            if ((action === 'ADD' || action === 'EDIT') && campo.autoincrement) return;
+
+            if (campo.tipo === 'select') {
+                formulario += `\n        <label id="label_${campo.nombre}" class="label_${campo.nombre}"></label>`;
+                formulario += `\n        <select id="${campo.nombre}" name="${campo.nombre}">`;
+                formulario += campo.opciones.map(o => `<option value="${o}">${o}</option>`).join('');
+                formulario += `</select>`;
+                formulario += `\n        <span id="div_error_${campo.nombre}"><a id="error_${campo.nombre}"></a></span><br>`;
+                return;
             }
-            //ficheros
-            if (action === 'ADD' || action === 'SEARCH') {
-                const esfichero = (this.estructura?.attributes?.[atributo]?.html?.type) === 'file';
-                if (esfichero) {
-                    const linkEl = document.getElementById(`link_${atributo}`);
-                    if (linkEl) {
-                        linkEl.classList.add('hidden');
+
+            if (campo.tipo === 'file') {
+                formulario += `\n        <label id="label_${campo.nombre}" class="label_${campo.nombre}"></label>`;
+                formulario += `\n        <input type="text" id="${campo.nombre}" name="${campo.nombre}">`;
+                formulario += `\n        <span id="div_error_${campo.nombre}"><a id="error_${campo.nombre}"></a></span>`;
+                formulario += `\n        <a id="link_${campo.nombre}" href="http://193.147.87.202/ET2/filesuploaded/files_${campo.nombre}/">`;
+                formulario += `\n          <img src="/CODIGO/iconos/FILE.png">`;
+                formulario += `\n        </a>`;
+                formulario += `\n        <label id="label_nuevo_${campo.nombre}" class="label_nuevo_${campo.nombre}"></label>`;
+                formulario += `\n        <input type="file" id="nuevo_${campo.nombre}" name="nuevo_${campo.nombre}">`;
+                formulario += `\n        <span id="div_error_nuevo_${campo.nombre}"><a id="error_nuevo_${campo.nombre}"></a></span><br>`;
+                return;
+            }
+
+            if (campo.tipo === 'textarea') {
+                formulario += `\n        <label id="label_${campo.nombre}" class="label_${campo.nombre}"></label>`;
+                formulario += `\n        <textarea id="${campo.nombre}" name="${campo.nombre}" rows="${campo.filas || 5}" cols="${campo.columnas || 40}"></textarea>`;
+                formulario += `\n        <span id="div_error_${campo.nombre}"><a id="error_${campo.nombre}"></a></span><br>`;
+                return;
+            }
+
+            formulario += `\n      <label id="label_${campo.nombre}" class="label_${campo.nombre}"></label>`;
+            formulario += `\n      <input type="${campo.tipo}" id="${campo.nombre}" name="${campo.nombre}">`;
+            formulario += `\n      <span id="div_error_${campo.nombre}"><a id="error_${campo.nombre}"></a></span><br>`;
+        });
+
+        document.getElementById('IU_form').innerHTML = formulario;
+    }
+
+    obtenerEstructura1() {
+        const atributos = this.estructura?.attributes_list || [];
+        const resultado = [];
+        for (const attr of atributos) {
+            const conf = this.estructura?.attributes?.[attr] || {};
+            const html = conf.html || {};
+            resultado.push({
+                nombre: attr,
+                tipo: html.type || html.tag || 'text',
+                opciones: html.options || [],
+                filas: html.rows,
+                columnas: html.columns,
+                autoincrement: conf.is_autoincrement === 'true'
+            });
+        }
+        return resultado;
+    }
+
+    obtenerEstructura2() {
+        const res = {};
+        const atributos = this.estructura?.attributes || {};
+        for (const [attr, conf] of Object.entries(atributos)) {
+            if (!conf.validation_rules) continue;
+            for (const [accion, reglas] of Object.entries(conf.validation_rules)) {
+                if (!res[accion]) res[accion] = {};
+                res[accion][attr] = {};
+                for (const [regla, valor] of Object.entries(reglas)) {
+                    if (Array.isArray(valor)) {
+                        res[accion][attr][regla] = { valor: valor[0], code: valor[1] };
+                    } else {
+                        res[accion][attr][regla] = { valor: valor, code: valor };
                     }
                 }
             }
-
-            if (action === 'ADD') {
-                const esfichero = (this.estructura?.attributes?.[atributo]?.html?.type) === 'file';
-                if (esfichero) {
-                    if (input) input.classList.add('hidden');
-                    const labelEl = document.querySelector(`label[for="${atributo}"]`);
-                    if (labelEl) labelEl.classList.add('hidden');
-                    const errorEl = document.getElementById(`div_error_${atributo}`);
-                    if (errorEl) errorEl.classList.add('hidden');
-                }
-            }
-
-            if (action === 'SEARCH' || action === 'SHOWCURRENT' || action === 'DELETE') {
-                if (atributo.startsWith('nuevo_') || atributo.startsWith('foto_')) {
-                    if (input) input.classList.add('hidden');
-                    const labelEl = document.querySelector(`label[for="${atributo}"]`);
-                    if (labelEl) labelEl.classList.add('hidden');
-                    const errorEl = document.getElementById(`div_error_${atributo}`);
-                    if (errorEl) errorEl.classList.add('hidden');
-                }
-            }
-
-            input.addEventListener('blur', () => {
-                validador.submit_test(
-                    input.id,
-                    action,
-                    this.estructura,
-                    validador.atomicValidations,
-                    console.log('aaaaaaaaaa'),
-                );
-            });
         }
-        //colocar botones 
+        return res;
+    }
 
-        switch (action) {
-            case 'ADD':
-                document.getElementById('IU_form').innerHTML += `<button type="button" id="submit_button" onclick="wiga = new Dom_validations(); wiga.submit_test('ADD')">niger</button>`;
-                break;
-            case 'EDIT':
-                document.getElementById('IU_form').innerHTML += `<button type="button" id="submit_button" onclick="validar.Dom_validations.submit_test('EDIT','this')">niger</button>`;
-                break;
-
-            /*
-        case 'SEARCH':
-            document.getElementById('IU_form').innerHTML += `<button type="submit" id="submit_button" class="btn btn-primary">${this.textos['text_contenido_boton_submit_SEARCH']}</button>`;
-            break;
-        case 'EDIT':
-            document.getElementById('IU_form').innerHTML += `<button type="submit" id="submit_button" class="btn btn-primary">${this.textos['text_contenido_boton_submit_EDIT']}</button>`;
-            break;
-        case 'DELETE':
-            document.getElementById('IU_form').innerHTML += `<button type="submit" id="submit_button" class="btn btn-primary">${this.textos['text_contenido_boton_submit_DELETE']}</button>`;
-            break;
-*/
-
+    comprobarCampo(accion, campo) {
+        const campoReal = campo.startsWith('nuevo_') ? campo.slice(6) : campo;
+        const tests = this.obtenerEstructura2()?.[accion]?.[campoReal] || {};
+        for (const tipo in tests) {
+            const { valor, code } = tests[tipo];
+            switch (tipo) {
+                case 'min_size':
+                    if (!this.validaciones.min_size(campo, valor)) return this.mostrar_error_campo(campo, code);
+                    break;
+                case 'max_size':
+                    if (!this.validaciones.max_size(campo, valor)) return this.mostrar_error_campo(campo, code);
+                    break;
+                case 'format':
+                    if (!this.validaciones.format(campo, valor)) return this.mostrar_error_campo(campo, code);
+                    break;
+                case 'no_file':
+                    if (!this.validaciones.no_file(document.getElementById(`nuevo_${campoReal}`).files[0]))
+                        return this.mostrar_error_campo(campo, code);
+                    break;
+                case 'file_type':
+                    if (!this.validaciones.type_file(document.getElementById(`nuevo_${campoReal}`).files[0], valor))
+                        return this.mostrar_error_campo(campo, code);
+                    break;
+                case 'max_size_file':
+                    if (!this.validaciones.max_size_file(document.getElementById(`nuevo_${campoReal}`).files[0], valor))
+                        return this.mostrar_error_campo(campo, code);
+                    break;
+                case 'format_name_file':
+                    if (!this.validaciones.format_name_file(document.getElementById(`nuevo_${campoReal}`).files[0], valor))
+                        return this.mostrar_error_campo(campo, code);
+                    break;
+                case 'personalize':
+                    const vals = Array.from(document.forms['IU_form'].elements)
+                        .reduce((o, el) => { o[el.id] = el.value; return o; }, {});
+                    const fn = window[valor];
+                    if (typeof fn === 'function' && !fn(vals))
+                        return this.mostrar_error_campo(campo, code);
+                    break;
+            }
         }
-
-
-
-
-
-
+        this.mostrar_exito_campo(campo);
+        return true;
     }
 
     cargar_formulario_dinamico() {
