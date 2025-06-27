@@ -187,7 +187,7 @@ class EntidadAbstracta extends DOM_class {
 			let texto = valoratributo;
 			texto += `<a id="link_file_characteristic" href="http://193.147.87.202/ET2/filesuploaded/files_file_characteristic/`;
 			texto += valoratributo;
-			texto += `"><img src="./iconos/FILE.png" /></a>`;
+                        texto += `"><img src="Julio_SergioRodriguez/CODIGO/iconos/FILE.png" /></a>`;
 
 			return texto;
 
