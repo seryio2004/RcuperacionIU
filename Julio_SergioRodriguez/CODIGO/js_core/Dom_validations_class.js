@@ -115,7 +115,7 @@ class Dom_validations {
                                 case 'max_size_file': {
                                         const file = document.getElementById(campo).files[0];
                                         if (!file || !atomicValidations.max_size_file(file, valor[0])) {
-                                                thismostrar_error_campo(campo, valor[1]);
+                                                this.mostrar_error_campo(campo, valor[1]);
                                                 return valor[1];
                                         }
                                         break;
