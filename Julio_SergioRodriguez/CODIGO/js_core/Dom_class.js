@@ -324,26 +324,38 @@ class DOM_class extends test {
     }
 
     obtenerEstructura1() {
-        const atributos = this.estructura?.attributes_list || [];
-        const resultado = [];
-        for (const attr of atributos) {
-            const conf = this.estructura?.attributes?.[attr] || {};
-            const html = conf.html || {};
-            resultado.push({
-                nombre: attr,
-                tipo: html.type || html.tag || 'text',
+        const nombreVariable = `estructura_${this.entidad}`;
+        const estructura = window[nombreVariable];
+        if (!estructura) return [];
+
+        return estructura.attributes_list.map(nombre => {
+            const def = estructura.attributes[nombre] || {};
+            const html = def.html || {};
+
+            let tipo = 'text';
+            if (html.tag === 'select') tipo = 'select';
+            else if (html.tag === 'textarea') tipo = 'textarea';
+            else if (html.tag === 'input') tipo = html.type || 'text';
+
+            return {
+                nombre,
+                tipo,
+                autoincrement: !!def.is_autoincrement,
                 opciones: html.options || [],
-                filas: html.rows,
-                columnas: html.columns,
-                autoincrement: conf.is_autoincrement === 'true'
-            });
-        }
-        return resultado;
+                filas: html.rows || null,
+                columnas: html.columns || null,
+                validation_rules: def.validation_rules || {}
+            };
+        });
     }
 
     obtenerEstructura2() {
+        const nombreVariable = `estructura_${this.entidad}`;
+        const estructura = window[nombreVariable];
+        if (!estructura) return {};
+
         const res = {};
-        const atributos = this.estructura?.attributes || {};
+        const atributos = estructura.attributes || {};
         for (const [attr, conf] of Object.entries(atributos)) {
             if (!conf.validation_rules) continue;
             for (const [accion, reglas] of Object.entries(conf.validation_rules)) {
