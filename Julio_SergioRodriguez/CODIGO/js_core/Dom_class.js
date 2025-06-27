@@ -324,15 +324,12 @@ class DOM_class extends test {
     }
 
     obtenerEstructura1() {
-        let estructura = this.estructura;
-        if (!estructura) {
-            const nombreVariable = `estructura_${this.entidad}`;
-            estructura = globalThis[nombreVariable];
-        }
+        const nombreVariable = `estructura_${this.entidad}`;
+        const estructura = window[nombreVariable];
         if (!estructura) return [];
 
         return estructura.attributes_list.map(nombre => {
-            const def = estructura.attributes[nombre] || {};
+            const def = estructura.attributes[nombre];
             const html = def.html || {};
 
             let tipo = 'text';
@@ -353,11 +350,8 @@ class DOM_class extends test {
     }
 
     obtenerEstructura2() {
-        let estructura = this.estructura;
-        if (!estructura) {
-            const nombreVariable = `estructura_${this.entidad}`;
-            estructura = globalThis[nombreVariable];
-        }
+        const nombreVariable = `estructura_${this.entidad}`;
+        const estructura = window[nombreVariable];
         if (!estructura) return {};
 
         const res = {};
