@@ -274,8 +274,7 @@ class DOM_class extends test {
     }
 
 
-    createForm(action) {
-        this.tipo_formulario = action;
+    createForm() {
         document.getElementById('IU_form').innerHTML = '';
 
         if (typeof this.cargar_formulario_html === 'function') {
@@ -285,7 +284,7 @@ class DOM_class extends test {
 
         let formulario = '';
         this.obtenerEstructura1().forEach(campo => {
-            if ((action === 'ADD' || action === 'EDIT') && campo.autoincrement) return;
+            if ((this.tipo_accion === 'ADD' || this.tipo_accion === 'EDIT') && campo.autoincrement) return;
 
             if (campo.tipo === 'select') {
                 formulario += `\n        <label id="label_${campo.nombre}" class="label_${campo.nombre}"></label>`;
@@ -301,7 +300,7 @@ class DOM_class extends test {
                 formulario += `\n        <input type="text" id="${campo.nombre}" name="${campo.nombre}">`;
                 formulario += `\n        <span id="div_error_${campo.nombre}"><a id="error_${campo.nombre}"></a></span>`;
                 formulario += `\n        <a id="link_${campo.nombre}" href="http://193.147.87.202/ET2/filesuploaded/files_${campo.nombre}/">`;
-                formulario += `\n          <img src="Julio_SergioRodriguez/CODIGO/iconos/FILE.png">`;
+                formulario += `\n          <img src="/CODIGO/iconos/FILE.png">`;
                 formulario += `\n        </a>`;
                 formulario += `\n        <label id="label_nuevo_${campo.nombre}" class="label_nuevo_${campo.nombre}"></label>`;
                 formulario += `\n        <input type="file" id="nuevo_${campo.nombre}" name="nuevo_${campo.nombre}">`;
@@ -410,7 +409,7 @@ class DOM_class extends test {
         /*
         const estructura = this.estructura;
         let formulario = '';
-        const accion = this.tipo_formulario || 'ADD';
+        const accion = this.tipo_accion || 'ADD';
 
         for (const atributo of estructura.attributes_list) {
             const config = estructura.attributes[atributo];
@@ -510,31 +509,31 @@ class DOM_class extends test {
     }
 
     createForm_ADD() {
-        this.tipo_formulario = 'ADD';
+        this.tipo_accion = 'ADD';
         this.form_values = null;
         this.createForm();
     }
 
     createForm_SEARCH() {
-        this.tipo_formulario = 'SEARCH';
+        this.tipo_accion = 'SEARCH';
         this.form_values = null;
         this.createForm();
     }
 
     createForm_EDIT(values) {
-        this.tipo_formulario = 'EDIT';
+        this.tipo_accion = 'EDIT';
         this.form_values = values;
         this.createForm();
     }
 
     createForm_DELETE(values) {
-        this.tipo_formulario = 'DELETE';
+        this.tipo_accion = 'DELETE';
         this.form_values = values;
         this.createForm();
     }
 
     createForm_SHOWCURRENT(values) {
-        this.tipo_formulario = 'SHOWCURRENT';
+        this.tipo_accion = 'SHOWCURRENT';
         this.form_values = values;
         this.createForm();
     }
