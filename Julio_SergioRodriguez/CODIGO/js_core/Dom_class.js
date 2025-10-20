@@ -4,19 +4,16 @@ class DOM_class extends test {
         super();
     }
 
-    mostrar_error_campo(id, codigoerror) {
-        document.getElementById('div_error_' + id).style.display = 'inline';
-        document.getElementById('div_error_' + id).innerHTML = codigoerror;
-        document.getElementById('div_error_' + id).className = codigoerror;
-        document.getElementById(id).className = 'errorcampo';
-        document.getElementById('submit_button').focus();
-        setLang();
-    }
+    
 
     mostrar_exito_campo(id) {
-        document.getElementById('div_error_' + id).style.display = 'none';
-        document.getElementById('div_error_' + id).innerHTML = '';
-        document.getElementById(id).className = 'exitocampo';
+        const errorSpan = document.getElementById('div_error_' + id);
+        const input = document.getElementById(id);
+        if (errorSpan) {
+            errorSpan.style.display = 'none';
+            errorSpan.innerHTML = '';
+        }
+        if (input) input.className = 'exitocampo';
     }
 
     modificarcolumnasamostrar(atributo) {
@@ -278,69 +275,108 @@ class DOM_class extends test {
 
 
     createForm(action) {
+        const validador = new Dom_validations();
         document.getElementById('IU_form').innerHTML = '';
-
         if (typeof this.cargar_formulario_html === 'function') {
             this.cargar_formulario_html();
+
         } else {
             this.cargar_formulario_dinamico();
+            const inputs = document.querySelectorAll('#IU_form input, #IU_form textarea');
+
+            const validador = new Dom_validations();
+            for (const input of inputs) {
+                input.addEventListener('blur', () => {
+                    validador.comprobarCampo(
+                        input.id,
+                        action,
+                        this.estructura,
+                        this.validaciones
+                    );
+                });
+            }
+
         }
-        console.log(document.getElementById('IU_form').querySelectorAll('input, textarea'));
-        for (let input of document.getElementById('IU_form').querySelectorAll('input, textarea')) {
-            
+        const formEl = document.getElementById('IU_form');
+        if (!formEl) return;
+        console.log(formEl.querySelectorAll('input, textarea'));
+        for (let input of formEl.querySelectorAll('input, textarea, select')) {
+
+            if (!input) continue;
             const atributo = input.id;
             //autoincrementales
             if (action === 'ADD' || action === 'EDIT') {
                 const autoIn = this.estructura?.attributes?.[atributo]?.is_autoincrement || false;
                 if (autoIn) {
-                    input.display="none";
-                    document.getElementById(`label_${atributo}`).display="none";
-                    document.getElementById(`div_error_${atributo}`).classList.add('hidden');
+                    if (input) input.style.display = "none";
+                    const labelEl = document.querySelector(`label[for="${atributo}"]`);
+                    if (labelEl) labelEl.style.display = "none";
+                    const errorEl = document.getElementById(`div_error_${atributo}`);
+                    if (errorEl) errorEl.classList.add('hidden');
                 }
             }
             //ficheros
             if (action === 'ADD' || action === 'SEARCH') {
                 const esfichero = (this.estructura?.attributes?.[atributo]?.html?.type) === 'file';
                 if (esfichero) {
-
-                    document.getElementById(`link_${atributo}`).classList.add('hidden');
-
+                    const linkEl = document.getElementById(`link_${atributo}`);
+                    if (linkEl) {
+                        linkEl.classList.add('hidden');
+                    }
                 }
             }
 
             if (action === 'ADD') {
                 const esfichero = (this.estructura?.attributes?.[atributo]?.html?.type) === 'file';
                 if (esfichero) {
-                    input.classList.add('hidden');
-                    document.getElementById(`label_${atributo}`).classList.add('hidden');
-                    document.getElementById(`div_error_${atributo}`).classList.add('hidden');
+                    if (input) input.classList.add('hidden');
+                    const labelEl = document.querySelector(`label[for="${atributo}"]`);
+                    if (labelEl) labelEl.classList.add('hidden');
+                    const errorEl = document.getElementById(`div_error_${atributo}`);
+                    if (errorEl) errorEl.classList.add('hidden');
                 }
             }
 
             if (action === 'SEARCH' || action === 'SHOWCURRENT' || action === 'DELETE') {
-                if (atibuto.startsWith('nuevo_') || atributo.startsWith('foto_')) {
-                    input.classList.add('hidden');
-                    document.getElementById(`label_${atributo}`).classList.add('hidden');
-                    document.getElementById(`div_error_${atributo}`).classList.add('hidden');
+                if (atributo.startsWith('nuevo_') || atributo.startsWith('foto_')) {
+                    if (input) input.classList.add('hidden');
+                    const labelEl = document.querySelector(`label[for="${atributo}"]`);
+                    if (labelEl) labelEl.classList.add('hidden');
+                    const errorEl = document.getElementById(`div_error_${atributo}`);
+                    if (errorEl) errorEl.classList.add('hidden');
                 }
             }
+
+            input.addEventListener('blur', () => {
+                validador.submit_test(
+                    input.id,
+                    action,
+                    this.estructura,
+                    validador.atomicValidations,
+                    console.log('aaaaaaaaaa'),
+                );
+            });
         }
         //colocar botones 
 
         switch (action) {
             case 'ADD':
-                document.getElementById('IU_form').innerHTML += `<button type="button" id="submit_button" onclick="validar.submit_test('ADD')">niger</button>`;
-                break;
-                /*
-            case 'SEARCH':
-                document.getElementById('IU_form').innerHTML += `<button type="submit" id="submit_button" class="btn btn-primary">${this.textos['text_contenido_boton_submit_SEARCH']}</button>`;
+                document.getElementById('IU_form').innerHTML += `<button type="button" id="submit_button" onclick="wiga = new Dom_validations(); wiga.submit_test('ADD')">niger</button>`;
                 break;
             case 'EDIT':
-                document.getElementById('IU_form').innerHTML += `<button type="submit" id="submit_button" class="btn btn-primary">${this.textos['text_contenido_boton_submit_EDIT']}</button>`;
+                document.getElementById('IU_form').innerHTML += `<button type="button" id="submit_button" onclick="validar.Dom_validations.submit_test('EDIT','this')">niger</button>`;
                 break;
-            case 'DELETE':
-                document.getElementById('IU_form').innerHTML += `<button type="submit" id="submit_button" class="btn btn-primary">${this.textos['text_contenido_boton_submit_DELETE']}</button>`;
-                break;
+
+            /*
+        case 'SEARCH':
+            document.getElementById('IU_form').innerHTML += `<button type="submit" id="submit_button" class="btn btn-primary">${this.textos['text_contenido_boton_submit_SEARCH']}</button>`;
+            break;
+        case 'EDIT':
+            document.getElementById('IU_form').innerHTML += `<button type="submit" id="submit_button" class="btn btn-primary">${this.textos['text_contenido_boton_submit_EDIT']}</button>`;
+            break;
+        case 'DELETE':
+            document.getElementById('IU_form').innerHTML += `<button type="submit" id="submit_button" class="btn btn-primary">${this.textos['text_contenido_boton_submit_DELETE']}</button>`;
+            break;
 */
 
         }
@@ -390,53 +426,57 @@ class DOM_class extends test {
         let contenido = '';
         // Recorremos los atributos de la estructura
         for (let attribute of attributes) {
-     
-          const type = this.estructura?.attributes?.[attribute]?.html?.type || "";
-          const tag = this.estructura?.attributes?.[attribute]?.html?.tag || "";
-    
-          switch (tag) {
-            case "input":
-              switch (type) {
-                case "text":
-                
-                  contenido += `<label for="${attribute}">${attribute}</label>` +
-                                 `<input type="text" id="${attribute}" name="${attribute}">`;
-                  break;
-                case "number":
-                  contenido += `<label for="${attribute}">${attribute}</label>` +
-                                 `<input type="number" id="${attribute}" name="${attribute}">`;
-                  break;
-                case "file":
-                  contenido += `<label for="${attribute}">${attribute}</label>` +
-                                 `<input type="file" id="${attribute}" name="${attribute}">` +
-                                 `<span id="div_error_${attribute}"></span>` +
-                                 `<a id="link_${attribute}" href="http://193.147.87.202/c12/files_uploaded/files_${attribute}/">` +
-                                 `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">...</svg></a>`;
-                  break;
-                
-              }
-              break;
-    
-            case "textarea":
-              const cols = this.structure?.attributes?.[attribute]?.html?.cols || 50;
-              const rows = this.structure?.attributes?.[attribute]?.html?.rows || 10;
-              contenido += `<label for="${attribute}">${attribute}</label>` +
-                             `<textarea id="${attribute}" name="${attribute}" rows="${rows}" cols="${cols}"></textarea>`;
-              break;
-    
-            case "select":
-              const options = this.structure?.attributes?.[attribute]?.html?.options || [];
-              contenido += `<label for="${attribute}">${attribute}</label>` +
-                             `<select name="${attribute}" id="${attribute}">`;
-              for (const option of options) {
-                contenido += `<option value="${option}" class="option_slot">${option}</option>`;
-              }
-              contenido += `</select>`;
-              break;
-          }
-        }  
+
+            const type = this.estructura?.attributes?.[attribute]?.html?.type || "";
+            const tag = this.estructura?.attributes?.[attribute]?.html?.tag || "";
+
+            switch (tag) {
+                case "input":
+                    switch (type) {
+                        case "text":
+
+                            contenido += `<label for="${attribute}">${attribute}</label>` +
+                                `<input type="text" id="${attribute}" name="${attribute}">` +
+                                `<span id="div_error_${attribute}"></span>`;
+                            break;
+                        case "number":
+                            contenido += `<label for="${attribute}">${attribute}</label>` +
+                                `<input type="number" id="${attribute}" name="${attribute}">` +
+                                `<span id="div_error_${attribute}"></span>`;
+                            break;
+                        case "file":
+                            contenido += `<label for="${attribute}">${attribute}</label>` +
+                                `<input type="file" id="${attribute}" name="${attribute}">` +
+                                `<span id="div_error_${attribute}"></span>` +
+                                `<a id="link_${attribute}" href="http://193.147.87.202/c12/files_uploaded/files_${attribute}/">` +
+                                `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">...</svg></a>`;
+                            break;
+
+                    }
+                    break;
+
+                case "textarea":
+                    const cols = this.estructura?.attributes?.[attribute]?.html?.cols || 50;
+                    const rows = this.estructura?.attributes?.[attribute]?.html?.rows || 10;
+                    contenido += `<label for="${attribute}">${attribute}</label>` +
+                        `<textarea id="${attribute}" name="${attribute}" rows="${rows}" cols="${cols}"></textarea>` +
+                        `<span id="div_error_${attribute}"></span>`;
+                    break;
+
+                case "select":
+                    const options = this.estructura?.attributes?.[attribute]?.html?.options || [];
+                    contenido += `<label for="${attribute}">${attribute}</label>` +
+                        `<select name="${attribute}" id="${attribute}">`;
+                    for (const option of options) {
+                        contenido += `<option value="${option}" class="option_slot">${option}</option>`;
+                    }
+                    contenido += `</select>` +
+                        `<span id="div_error_${attribute}"></span>`;
+                    break;
+            }
+        }
         document.getElementById('IU_form').innerHTML = contenido;
-        document.getElementById('div_IU_form').display = 'block';
+        document.getElementById('div_IU_form').style.display = 'block';
     }
 
     load_data(values) {
