@@ -287,23 +287,32 @@ class DOM_class extends test {
         }
         console.log(document.getElementById('IU_form').querySelectorAll('input, textarea'));
         for (let input of document.getElementById('IU_form').querySelectorAll('input, textarea')) {
-            
-            const atributo = input.id;
+
+            const idElemento = input.id;
+            const atributo = idElemento.startsWith('nuevo_') ? idElemento.substring('nuevo_'.length) : idElemento;
             //autoincrementales
             if (action === 'ADD' || action === 'EDIT') {
                 const autoIn = this.estructura?.attributes?.[atributo]?.is_autoincrement || false;
                 if (autoIn) {
-                    input.display="none";
-                    document.getElementById(`label_${atributo}`).display="none";
-                    document.getElementById(`div_error_${atributo}`).classList.add('hidden');
+                    input.style.display = 'none';
+                    const label = document.getElementById(`label_${idElemento}`) || document.getElementById(`label_${atributo}`);
+                    if (label) {
+                        label.style.display = 'none';
+                    }
+                    const divError = document.getElementById(`div_error_${idElemento}`) || document.getElementById(`div_error_${atributo}`);
+                    if (divError) {
+                        divError.classList.add('hidden');
+                    }
                 }
             }
             //ficheros
             if (action === 'ADD' || action === 'SEARCH') {
                 const esfichero = (this.estructura?.attributes?.[atributo]?.html?.type) === 'file';
                 if (esfichero) {
-
-                    document.getElementById(`link_${atributo}`).classList.add('hidden');
+                    const link = document.getElementById(`link_${atributo}`);
+                    if (link) {
+                        link.classList.add('hidden');
+                    }
 
                 }
             }
@@ -312,16 +321,28 @@ class DOM_class extends test {
                 const esfichero = (this.estructura?.attributes?.[atributo]?.html?.type) === 'file';
                 if (esfichero) {
                     input.classList.add('hidden');
-                    document.getElementById(`label_${atributo}`).classList.add('hidden');
-                    document.getElementById(`div_error_${atributo}`).classList.add('hidden');
+                    const label = document.getElementById(`label_${idElemento}`) || document.getElementById(`label_${atributo}`);
+                    if (label) {
+                        label.classList.add('hidden');
+                    }
+                    const divError = document.getElementById(`div_error_${idElemento}`) || document.getElementById(`div_error_${atributo}`);
+                    if (divError) {
+                        divError.classList.add('hidden');
+                    }
                 }
             }
 
             if (action === 'SEARCH' || action === 'SHOWCURRENT' || action === 'DELETE') {
-                if (atibuto.startsWith('nuevo_') || atributo.startsWith('foto_')) {
+                if (idElemento.startsWith('nuevo_') || atributo.startsWith('foto_')) {
                     input.classList.add('hidden');
-                    document.getElementById(`label_${atributo}`).classList.add('hidden');
-                    document.getElementById(`div_error_${atributo}`).classList.add('hidden');
+                    const label = document.getElementById(`label_${idElemento}`) || document.getElementById(`label_${atributo}`);
+                    if (label) {
+                        label.classList.add('hidden');
+                    }
+                    const divError = document.getElementById(`div_error_${idElemento}`) || document.getElementById(`div_error_${atributo}`);
+                    if (divError) {
+                        divError.classList.add('hidden');
+                    }
                 }
             }
         }
@@ -398,21 +419,26 @@ class DOM_class extends test {
             case "input":
               switch (type) {
                 case "text":
-                
+
                   contenido += `<label for="${attribute}">${attribute}</label>` +
-                                 `<input type="text" id="${attribute}" name="${attribute}">`;
+                                 `<input type="text" id="${attribute}" name="${attribute}">` +
+                                 `<span id="div_error_${attribute}"></span>`;
                   break;
                 case "number":
                   contenido += `<label for="${attribute}">${attribute}</label>` +
-                                 `<input type="number" id="${attribute}" name="${attribute}">`;
+                                 `<input type="number" id="${attribute}" name="${attribute}">` +
+                                 `<span id="div_error_${attribute}"></span>`;
                   break;
-                case "file":
-                  contenido += `<label for="${attribute}">${attribute}</label>` +
-                                 `<input type="file" id="${attribute}" name="${attribute}">` +
-                                 `<span id="div_error_${attribute}"></span>` +
+                case "file": {
+                  const nuevoId = `nuevo_${attribute}`;
+                  contenido += `<label for="${nuevoId}" id="label_${nuevoId}">${attribute}</label>` +
+                                 `<input type="file" id="${nuevoId}" name="${nuevoId}">` +
+                                 `<input type="hidden" id="${attribute}" name="${attribute}">` +
+                                 `<span id="div_error_${nuevoId}"></span>` +
                                  `<a id="link_${attribute}" href="http://193.147.87.202/c12/files_uploaded/files_${attribute}/">` +
                                  `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">...</svg></a>`;
                   break;
+                }
                 
               }
               break;
@@ -421,7 +447,8 @@ class DOM_class extends test {
               const cols = this.structure?.attributes?.[attribute]?.html?.cols || 50;
               const rows = this.structure?.attributes?.[attribute]?.html?.rows || 10;
               contenido += `<label for="${attribute}">${attribute}</label>` +
-                             `<textarea id="${attribute}" name="${attribute}" rows="${rows}" cols="${cols}"></textarea>`;
+                             `<textarea id="${attribute}" name="${attribute}" rows="${rows}" cols="${cols}"></textarea>` +
+                             `<span id="div_error_${attribute}"></span>`;
               break;
     
             case "select":
@@ -431,7 +458,7 @@ class DOM_class extends test {
               for (const option of options) {
                 contenido += `<option value="${option}" class="option_slot">${option}</option>`;
               }
-              contenido += `</select>`;
+              contenido += `</select><span id="div_error_${attribute}"></span>`;
               break;
           }
         }  

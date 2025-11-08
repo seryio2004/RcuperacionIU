@@ -894,3 +894,7 @@ let pruebas_file_project = Array(
     Array('project', 'nuevo_file_project', 117, 26, 'EDIT', 'max_size', Array('nombreDeArchivo', Array('application/pdf'), 5000), true),
 
 );
+
+let def_tests_articulo = Array();
+let pruebas_articulo = Array();
+let pruebas_file_articulo = Array();
