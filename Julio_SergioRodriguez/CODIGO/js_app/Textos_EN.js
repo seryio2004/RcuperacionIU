@@ -63,9 +63,56 @@ let textos_EN = {
 	//SEARCH
 	// foto persona
 	'foto_persona_max_size_KO': '',
-	'foto_persona_format_KO': '',
+        'foto_persona_format_KO': '',
 
+        // Article entity
+        'text_articulo': 'Article',
+        'text_titulo_page_articulo': 'Article',
+        'text_contenido_titulo_form_articulo_ADD': 'Add a new record:',
+        'text_contenido_titulo_form_articulo_EDIT': 'Edit the record:',
+        'text_contenido_titulo_form_articulo_SEARCH': 'Search a record:',
+        'text_contenido_titulo_form_articulo_DELETE': 'Delete the record:',
+        'text_contenido_titulo_form_articulo_SHOWCURRENT': 'View the record:',
 
+        'label_id_articulo': 'Article ID:',
+        'label_titulo_articulo': 'Title:',
+        'label_autor_articulo': 'Author(s):',
+        'label_revista_articulo': 'Journal:',
+        'label_fecha_articulo': 'Publication Date:',
+        'label_doi_articulo': 'DOI:',
+        'label_palabras_clave_articulo': 'Keywords:',
+        'label_file_articulo': 'File:',
+        'label_nuevo_file_articulo': 'File:',
 
+        'id_articulo_min_size_KO': 'The article ID must have at least 1 character.',
+        'id_articulo_max_size_KO': 'The article ID cannot have more than 11 characters.',
+        'id_articulo_format_KO': 'The article ID can only contain numbers.',
+
+        'titulo_articulo_min_size_KO': 'The title must have at least 10 characters.',
+        'titulo_articulo_max_size_KO': 'The title must have fewer than 200 characters.',
+        'titulo_articulo_format_KO': 'The title can only contain letters, numbers and allowed punctuation.',
+
+        'autor_articulo_min_size_KO': 'The author must have at least 6 characters.',
+        'autor_articulo_max_size_KO': 'The author cannot have more than 200 characters.',
+        'autor_articulo_format_KO': 'The author can only contain letters, spaces and allowed punctuation.',
+
+        'revista_articulo_min_size_KO': 'The journal must have at least 4 characters.',
+        'revista_articulo_max_size_KO': 'The journal cannot have more than 150 characters.',
+        'revista_articulo_format_KO': 'The journal can only contain letters, numbers and allowed punctuation.',
+
+        'fecha_articulo_format_KO': 'The date must have the format DD/MM/YYYY.',
+
+        'doi_articulo_min_size_KO': 'The DOI must have at least 6 characters.',
+        'doi_articulo_max_size_KO': 'The DOI cannot have more than 100 characters.',
+        'doi_articulo_format_KO': 'The DOI can only contain letters, numbers, dots, slashes and dashes.',
+
+        'palabras_clave_articulo_min_size_KO': 'The keywords must have at least 10 characters.',
+        'palabras_clave_articulo_max_size_KO': 'The keywords cannot have more than 500 characters.',
+        'palabras_clave_articulo_format_KO': 'The keywords can only contain letters, numbers, commas and dashes.',
+
+        'file_articulo_no_file_KO': 'You must select a file.',
+        'file_articulo_file_type_KO': 'The file must be PDF or DOC/DOCX.',
+        'file_articulo_max_size_file_KO': 'The file cannot exceed 2 MB.',
+        'file_articulo_format_name_file_KO': 'The file name must be between 7 and 100 characters and end in pdf, doc or docx.'
 
 }

@@ -2,10 +2,12 @@ let textos_ES = {
     text_analysis_prep: "Preparación de Análisis",
     text_project: "Proyecto",
     text_characteristic: "Característica",
+    text_articulo: "Artículo",
 
     text_titulo_page_analysis_prep: "Preparación de Análisis",
     text_titulo_page_project: "Proyecto",
     text_titulo_page_characteristic: "Característica",
+    text_titulo_page_articulo: "Artículo",
 
     text_contenido_titulo_form_project_ADD: "Añade un nuevo registro:   ",
     text_contenido_titulo_form_project_EDIT: "Edita el registro:",
@@ -24,6 +26,11 @@ let textos_ES = {
     text_contenido_titulo_form_characteristic_SEARCH: "Busca un registro:",
     text_contenido_titulo_form_characteristic_DELETE: "Elimina el registro:",
     text_contenido_titulo_form_characteristic_SHOWCURRENT: "Visualiza el registro:",
+    text_contenido_titulo_form_articulo_ADD: "Añade un nuevo registro:",
+    text_contenido_titulo_form_articulo_EDIT: "Edita el registro:",
+    text_contenido_titulo_form_articulo_SEARCH: "Busca un registro:",
+    text_contenido_titulo_form_articulo_DELETE: "Elimina el registro:",
+    text_contenido_titulo_form_articulo_SHOWCURRENT: "Visualiza el registro:",
 
     label_id_analysis_preparation: "ID de Preparación de Análisis:",
     label_name_analysis_preparation: "Nombre:",
@@ -50,6 +57,15 @@ let textos_ES = {
     label_category_characteristic: "Categoría:",
     label_bibref_characteristic: "Referencia Bibliográfica:",
     label_file_characteristic: "Archivo:",
+    label_id_articulo: "ID del Artículo:",
+    label_titulo_articulo: "Título:",
+    label_autor_articulo: "Autor/es:",
+    label_revista_articulo: "Revista:",
+    label_fecha_articulo: "Fecha de Publicación:",
+    label_doi_articulo: "DOI:",
+    label_palabras_clave_articulo: "Palabras Clave:",
+    label_file_articulo: "Archivo:",
+    label_nuevo_file_articulo: "Archivo:",
 
     // Preparación de Análisis
     id_analysis_preparation_length_min_KO: "El ID debe tener al menos 1 carácter.",
@@ -73,6 +89,36 @@ let textos_ES = {
     file_analysis_preparation_format_KO: "El nombre del archivo solo puede contener letras y puntos, sin acentos, ñ ni espacios.",
     file_analysis_preparation_type_KO: "El archivo debe ser de tipo PDF, DOC o DOCX.",
     file_analysis_preparation_size_KO: "El archivo no puede superar los 2 MB.",
+    id_articulo_min_size_KO: "El ID del artículo debe tener al menos 1 carácter.",
+    id_articulo_max_size_KO: "El ID del artículo no puede tener más de 11 caracteres.",
+    id_articulo_format_KO: "El ID del artículo solo puede contener números.",
+
+    titulo_articulo_min_size_KO: "El título debe tener al menos 10 caracteres.",
+    titulo_articulo_max_size_KO: "El título debe tener menos de 200 caracteres.",
+    titulo_articulo_format_KO: "El título solo puede contener letras, números y signos permitidos.",
+
+    autor_articulo_min_size_KO: "El autor debe tener al menos 6 caracteres.",
+    autor_articulo_max_size_KO: "El autor no puede tener más de 200 caracteres.",
+    autor_articulo_format_KO: "El autor solo puede contener letras, espacios y signos permitidos.",
+
+    revista_articulo_min_size_KO: "La revista debe tener al menos 4 caracteres.",
+    revista_articulo_max_size_KO: "La revista no puede tener más de 150 caracteres.",
+    revista_articulo_format_KO: "La revista solo puede contener letras, números y signos permitidos.",
+
+    fecha_articulo_format_KO: "La fecha debe tener el formato DD/MM/AAAA.",
+
+    doi_articulo_min_size_KO: "El DOI debe tener al menos 6 caracteres.",
+    doi_articulo_max_size_KO: "El DOI no puede tener más de 100 caracteres.",
+    doi_articulo_format_KO: "El DOI solo puede contener letras, números, puntos, barras y guiones.",
+
+    palabras_clave_articulo_min_size_KO: "Las palabras clave deben tener al menos 10 caracteres.",
+    palabras_clave_articulo_max_size_KO: "Las palabras clave no pueden tener más de 500 caracteres.",
+    palabras_clave_articulo_format_KO: "Las palabras clave solo pueden contener letras, números, comas y guiones.",
+
+    file_articulo_no_file_KO: "Debes seleccionar un archivo.",
+    file_articulo_file_type_KO: "El archivo debe ser PDF o DOC/DOCX.",
+    file_articulo_max_size_file_KO: "El archivo no puede superar los 2 MB.",
+    file_articulo_format_name_file_KO: "El nombre del archivo debe tener entre 7 y 100 caracteres y terminar en pdf, doc o docx.",
 
     // Proyecto
     // id_project
